@@ -1,5 +1,7 @@
 package de.zabuza.kivabot.controller;
 
+import java.util.Optional;
+
 import javax.swing.JFrame;
 
 import de.zabuza.kivabot.controller.listener.StartActionListener;
@@ -93,8 +95,16 @@ public final class MainFrameController {
 		mView.setStopButtonEnabled(true);
 		mView.setSettingsButtonEnabled(false);
 
-		mCurrentRoutine = new RoutineTask(mView.getUsername(), mView.getPassword(), mView.getBrowser(), mLogger, this,
-				mSettingsController);
+		final Optional<String> protectionSpell;
+		if (mView.isUseProtectionSpellChecked()) {
+			protectionSpell = Optional.of(mSettingsController.getProtectionSpell());
+		} else {
+			protectionSpell = Optional.empty();
+		}
+
+		mCurrentRoutine = new RoutineTask(mView.getUsername(), mView.getPassword(), mView.getWorld(),
+				mView.getBrowser(), mView.getMovementOptions(), protectionSpell, mView.isUseSpecialSkillChecked(),
+				mView.getKivaTasks(), mLogger, this, mSettingsController);
 		mCurrentRoutine.start();
 	}
 
@@ -107,8 +117,8 @@ public final class MainFrameController {
 			mCurrentRoutine.interrupt();
 			try {
 				mCurrentRoutine.join(INTERRUPT_WAIT);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			} catch (final InterruptedException e) {
+				mLogger.logUnknownError(e);
 			}
 		}
 	}

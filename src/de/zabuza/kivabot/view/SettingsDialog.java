@@ -43,6 +43,10 @@ public final class SettingsDialog extends JDialog {
 	 */
 	private static final int DEFAULT_FONT_SIZE = 11;
 	/**
+	 * The default name of the protection spell.
+	 */
+	private final static String DEFAULT_PROTECTION_SPELL = "Schutzzauber";
+	/**
 	 * The title of the dialog window.
 	 */
 	private final static String DIALOG_TITLE = "Settings";
@@ -53,7 +57,11 @@ public final class SettingsDialog extends JDialog {
 	/**
 	 * The height of the dialog.
 	 */
-	private final static int HEIGHT = 380;
+	private final static int HEIGHT = 450;
+	/**
+	 * The title of the miscellaneous panel.
+	 */
+	private final static String MISCELLANEOUS_TITLE = "Miscellaneous";
 	/**
 	 * The origin offset of the dialog to the owner, in both directions.
 	 */
@@ -123,6 +131,10 @@ public final class SettingsDialog extends JDialog {
 	 */
 	private JTextField mInternetExplorerDriverField;
 	/**
+	 * The miscellaneous panel of the dialog.
+	 */
+	private JPanel mMiscellaneousPanel;
+	/**
 	 * Select driver button of the dialog for Microsoft Edge.
 	 */
 	private JButton mMsEdgeBtn;
@@ -138,6 +150,10 @@ public final class SettingsDialog extends JDialog {
 	 * The driver input field for Opera.
 	 */
 	private JTextField mOperaDriverField;
+	/**
+	 * The protection spell miscellaneous input field.
+	 */
+	private JTextField mProtectionSpellMiscellaneousField;
 	/**
 	 * Select driver button of the dialog for Safari.
 	 */
@@ -260,6 +276,15 @@ public final class SettingsDialog extends JDialog {
 	}
 
 	/**
+	 * Gets the protection spell field.
+	 * 
+	 * @return The protection spell field
+	 */
+	public JTextField getProtectionSpellField() {
+		return mProtectionSpellMiscellaneousField;
+	}
+
+	/**
 	 * Enables or disables all elements of the dialog.
 	 * 
 	 * @param enabled
@@ -326,12 +351,12 @@ public final class SettingsDialog extends JDialog {
 		mElements.add(mBrowserBinaryBtn);
 
 		mSaveBtn = new JButton("Save");
-		mSaveBtn.setBounds((WIDTH / 2) - 100, 310, 80, 20);
+		mSaveBtn.setBounds((WIDTH / 2) - 100, 380, 80, 20);
 		mTrailerPanel.add(mSaveBtn);
 		mElements.add(mSaveBtn);
 
 		mCancelBtn = new JButton("Cancel");
-		mCancelBtn.setBounds((WIDTH / 2) + 20, 310, 80, 20);
+		mCancelBtn.setBounds((WIDTH / 2) + 20, 380, 80, 20);
 		mTrailerPanel.add(mCancelBtn);
 		mElements.add(mCancelBtn);
 	}
@@ -388,6 +413,13 @@ public final class SettingsDialog extends JDialog {
 		mBinaryPanel.add(mBrowserBinaryField);
 		mElements.add(mBrowserBinaryField);
 		mBrowserBinaryField.setColumns(DEFAULT_FIELD_COLUMNS);
+
+		mProtectionSpellMiscellaneousField = new JTextField(DEFAULT_PROTECTION_SPELL);
+		mProtectionSpellMiscellaneousField.setHorizontalAlignment(SwingConstants.LEFT);
+		mProtectionSpellMiscellaneousField.setBounds(120, 30, 240, 20);
+		mMiscellaneousPanel.add(mProtectionSpellMiscellaneousField);
+		mElements.add(mProtectionSpellMiscellaneousField);
+		mProtectionSpellMiscellaneousField.setColumns(DEFAULT_FIELD_COLUMNS);
 	}
 
 	/**
@@ -435,6 +467,12 @@ public final class SettingsDialog extends JDialog {
 		mBrowserBinaryLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
 		mBrowserBinaryLbl.setBounds(10, 30, 60, 14);
 		mBinaryPanel.add(mBrowserBinaryLbl);
+
+		JLabel mProtectionSpellMiscellaneousLbl = new JLabel("Protection spell:");
+		mProtectionSpellMiscellaneousLbl.setHorizontalAlignment(SwingConstants.RIGHT);
+		mProtectionSpellMiscellaneousLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
+		mProtectionSpellMiscellaneousLbl.setBounds(10, 30, 100, 14);
+		mMiscellaneousPanel.add(mProtectionSpellMiscellaneousLbl);
 	}
 
 	/**
@@ -455,8 +493,15 @@ public final class SettingsDialog extends JDialog {
 		mContainer.add(mBinaryPanel);
 		mBinaryPanel.setLayout(null);
 
+		mMiscellaneousPanel = new JPanel();
+		mMiscellaneousPanel.setBounds(10, 300, WIDTH - 25, 70);
+		TitledBorder titledBorderMiscellaneous = BorderFactory.createTitledBorder(MISCELLANEOUS_TITLE);
+		mMiscellaneousPanel.setBorder(titledBorderMiscellaneous);
+		mContainer.add(mMiscellaneousPanel);
+		mMiscellaneousPanel.setLayout(null);
+
 		mTrailerPanel = new JPanel();
-		mTrailerPanel.setBounds(10, 300, WIDTH - 25, 80);
+		mTrailerPanel.setBounds(10, 370, WIDTH - 25, 80);
 		mContainer.add(mTrailerPanel);
 		mTrailerPanel.setLayout(null);
 	}

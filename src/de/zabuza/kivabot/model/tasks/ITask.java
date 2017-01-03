@@ -1,5 +1,7 @@
 package de.zabuza.kivabot.model.tasks;
 
+import de.zabuza.kivabot.model.AbortTaskException;
+
 /**
  * Interface for tasks. A Task can be started and interrupted.
  * 

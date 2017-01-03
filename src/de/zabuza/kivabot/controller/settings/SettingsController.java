@@ -32,13 +32,17 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 */
 	public static final String UNKNOWN_KEY_VALUE = "";
 	/**
-	 * Key identifier for binary settings.
+	 * Key identifier for binary setting.
 	 */
 	private static final String KEY_IDENTIFIER_BINARY = "binary";
 	/**
 	 * Key identifier for driver settings.
 	 */
 	private static final String KEY_IDENTIFIER_DRIVER = "driver";
+	/**
+	 * Key identifier for the protection spell setting.
+	 */
+	private static final String KEY_IDENTIFIER_PROTECTION_SPELL = "protection_spell";
 	/**
 	 * Separator which separates several information in a key.
 	 */
@@ -105,21 +109,29 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 */
 	public void executeSaveAction() {
 		// Driver settings
-		for (EBrowser browser : EBrowser.values()) {
-			JTextField field = mSettingsDialog.getBrowserDriverField(browser);
-			String value = field.getText();
+		for (final EBrowser browser : EBrowser.values()) {
+			final JTextField field = mSettingsDialog.getBrowserDriverField(browser);
+			final String value = field.getText();
 			if (!value.equals(UNKNOWN_KEY_VALUE)) {
-				String key = KEY_IDENTIFIER_DRIVER + KEY_INFO_SEPARATOR + browser;
+				final String key = KEY_IDENTIFIER_DRIVER + KEY_INFO_SEPARATOR + browser;
 				setSetting(key, value);
 			}
 		}
 
-		// Binary settings
-		JTextField field = mSettingsDialog.getBrowserBinaryField();
-		String value = field.getText();
-		if (!value.equals(UNKNOWN_KEY_VALUE)) {
-			String key = KEY_IDENTIFIER_BINARY;
-			setSetting(key, value);
+		// Binary setting
+		final JTextField binaryField = mSettingsDialog.getBrowserBinaryField();
+		final String binaryValue = binaryField.getText();
+		if (!binaryValue.equals(UNKNOWN_KEY_VALUE)) {
+			final String key = KEY_IDENTIFIER_BINARY;
+			setSetting(key, binaryValue);
+		}
+
+		// Protection spell setting
+		final JTextField protectionSpellField = mSettingsDialog.getProtectionSpellField();
+		final String protectionSpellValue = protectionSpellField.getText();
+		if (!protectionSpellValue.equals(UNKNOWN_KEY_VALUE)) {
+			final String key = KEY_IDENTIFIER_PROTECTION_SPELL;
+			setSetting(key, protectionSpellValue);
 		}
 
 		// Save settings
@@ -190,6 +202,21 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 			return null;
 		} else {
 			return driver;
+		}
+	}
+
+	/**
+	 * Gets the name of the protection spell to use.
+	 * 
+	 * @return The name of the protection spell to use or <tt>null</tt> if not
+	 *         set
+	 */
+	public String getProtectionSpell() {
+		String protectionSpell = getSetting(KEY_IDENTIFIER_PROTECTION_SPELL);
+		if (protectionSpell.equals(UNKNOWN_KEY_VALUE)) {
+			return null;
+		} else {
+			return protectionSpell;
 		}
 	}
 
@@ -264,18 +291,22 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 * Passes the settings of the store to the view for display.
 	 */
 	private void passSettingsToView() {
-		for (Entry<String, String> entry : mSettingsStore.entrySet()) {
-			String[] keySplit = entry.getKey().split(KEY_INFO_SEPARATOR);
-			String keyIdentifier = keySplit[0];
+		for (final Entry<String, String> entry : mSettingsStore.entrySet()) {
+			final String[] keySplit = entry.getKey().split(KEY_INFO_SEPARATOR);
+			final String keyIdentifier = keySplit[0];
 
 			if (keyIdentifier.equals(KEY_IDENTIFIER_DRIVER)) {
 				// Driver settings
-				EBrowser browser = EBrowser.valueOf(keySplit[1]);
-				JTextField field = mSettingsDialog.getBrowserDriverField(browser);
+				final EBrowser browser = EBrowser.valueOf(keySplit[1]);
+				final JTextField field = mSettingsDialog.getBrowserDriverField(browser);
 				field.setText(entry.getValue());
 			} else if (keyIdentifier.equals(KEY_IDENTIFIER_BINARY)) {
 				// Binary settings
-				JTextField field = mSettingsDialog.getBrowserBinaryField();
+				final JTextField field = mSettingsDialog.getBrowserBinaryField();
+				field.setText(entry.getValue());
+			} else if (keyIdentifier.equals(KEY_IDENTIFIER_PROTECTION_SPELL)) {
+				// Protection spell settings
+				final JTextField field = mSettingsDialog.getProtectionSpellField();
 				field.setText(entry.getValue());
 			} else {
 				throw new IllegalStateException(

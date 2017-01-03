@@ -1,17 +1,17 @@
 package de.zabuza.kivabot.model.tasks;
 
 import de.zabuza.kivabot.controller.logging.Logger;
+import de.zabuza.kivabot.model.AbortTaskException;
 import de.zabuza.sparkle.freewar.IFreewarInstance;
+import de.zabuza.sparkle.freewar.player.IPlayer;
 
 /**
- * A task which moves the given Freewar instance to the oil storehouse and
- * collects oil.
+ * A task which activates the special ability of the player.
  * 
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
-public class CollectOilTask implements ITask {
-
+public class ActivateSpecialSkillTask implements ITask {
 	/**
 	 * The Freewar instance to use.
 	 */
@@ -26,15 +26,14 @@ public class CollectOilTask implements ITask {
 	private final Logger mLogger;
 
 	/**
-	 * Creates a task which moves the given Freewar instance to the oil
-	 * storehouse and collects oil.
+	 * Creates a task which activates the special ability of the player.
 	 * 
 	 * @param instance
 	 *            The Freewar instance to use
 	 * @param logger
 	 *            The logger to use
 	 */
-	public CollectOilTask(final IFreewarInstance instance, final Logger logger) {
+	public ActivateSpecialSkillTask(final IFreewarInstance instance, final Logger logger) {
 		mInstance = instance;
 		mLogger = logger;
 		mInterrupted = false;
@@ -67,13 +66,16 @@ public class CollectOilTask implements ITask {
 	 */
 	@Override
 	public void start() {
-		mLogger.logInfo("Moving to oil storehouse...", Logger.TOP_LEVEL);
-		// TODO Implement something
-		mLogger.logInfo("Arrival at oil storehouse.", Logger.FIRST_LEVEL);
-
-		mLogger.logInfo("Collecting oil...", Logger.TOP_LEVEL);
-		// TODO Implement something
-		mLogger.logInfo("Oil collected.", Logger.FIRST_LEVEL);
+		// Activate the special skill
+		mLogger.logInfo("Activating special skill...", Logger.TOP_LEVEL);
+		final IPlayer player = mInstance.getPlayer();
+		// TODO Exchange condition with activation of special skill
+		if (player.getAttackPoints() != 0) {
+			mLogger.logInfo("Activated special skill.", Logger.FIRST_LEVEL);
+		} else {
+			mLogger.logError("Failed to activate special skill.", Logger.FIRST_LEVEL);
+			throw new AbortTaskException();
+		}
 	}
 
 }

@@ -20,8 +20,6 @@ public class StopActionListener implements ActionListener {
 	/**
 	 * Creates a new listener of the stop action.
 	 * 
-	 * @param view
-	 *            View of the main frame
 	 * @param controller
 	 *            Controller of the main frame
 	 */

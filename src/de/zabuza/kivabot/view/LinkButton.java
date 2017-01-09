@@ -28,8 +28,8 @@ public final class LinkButton extends JButton {
 	/**
 	 * Creates a new link button.
 	 * 
-	 * @param text
-	 *            The text of the button
+	 * @param title
+	 *            The title of the button
 	 */
 	public LinkButton(final String title) {
 		super(TITLE_PRE + title + TITLE_SUCC);

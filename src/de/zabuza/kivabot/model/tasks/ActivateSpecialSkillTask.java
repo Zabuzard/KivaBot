@@ -69,8 +69,7 @@ public class ActivateSpecialSkillTask implements ITask {
 		// Activate the special skill
 		mLogger.logInfo("Activating special skill...", Logger.TOP_LEVEL);
 		final IPlayer player = mInstance.getPlayer();
-		// TODO Exchange condition with activation of special skill
-		if (player.getAttackPoints() != 0) {
+		if (player.activateSpecialSkill()) {
 			mLogger.logInfo("Activated special skill.", Logger.FIRST_LEVEL);
 		} else {
 			mLogger.logError("Failed to activate special skill.", Logger.FIRST_LEVEL);

@@ -64,6 +64,8 @@ public final class MainFrameController {
 	public void initialize() {
 		linkListener();
 		mSettingsController.initialize();
+		// Pass the saved settings to the view
+		mSettingsController.passSettingsToMainView();
 	}
 
 	/**
@@ -89,6 +91,10 @@ public final class MainFrameController {
 	 * Starts the routine.
 	 */
 	public void startRoutine() {
+		// First save the current content of the view
+		mSettingsController.executeSaveAction();
+
+		// Start the routine
 		mLogger.logInfo("Routine started.", Logger.TOP_LEVEL);
 		mView.setAllInputEnabled(false);
 		mView.setStartButtonEnabled(false);

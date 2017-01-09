@@ -5,6 +5,7 @@ import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -16,8 +17,11 @@ import de.zabuza.kivabot.controller.listener.SaveActionListener;
 import de.zabuza.kivabot.controller.listener.SettingsActionListener;
 import de.zabuza.kivabot.controller.logging.Logger;
 import de.zabuza.kivabot.model.IBrowserSettingsProvider;
+import de.zabuza.kivabot.model.tasks.EKivaTask;
 import de.zabuza.kivabot.view.MainFrameView;
 import de.zabuza.kivabot.view.SettingsDialog;
+import de.zabuza.sparkle.freewar.EWorld;
+import de.zabuza.sparkle.freewar.movement.network.EMoveType;
 import de.zabuza.sparkle.webdriver.EBrowser;
 
 /**
@@ -36,13 +40,45 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 */
 	private static final String KEY_IDENTIFIER_BINARY = "binary";
 	/**
+	 * Key identifier for the selected browser.
+	 */
+	private static final String KEY_IDENTIFIER_BROWSER = "browser";
+	/**
 	 * Key identifier for driver settings.
 	 */
 	private static final String KEY_IDENTIFIER_DRIVER = "driver";
 	/**
+	 * Key identifier for the movement options.
+	 */
+	private static final String KEY_IDENTIFIER_MOVEMENT_OPTION = "movement_option";
+	/**
+	 * Key identifier for the password.
+	 */
+	private static final String KEY_IDENTIFIER_PASSWORD = "password";
+	/**
 	 * Key identifier for the protection spell setting.
 	 */
 	private static final String KEY_IDENTIFIER_PROTECTION_SPELL = "protection_spell";
+	/**
+	 * Key identifier for the tasks.
+	 */
+	private static final String KEY_IDENTIFIER_TASK = "task";
+	/**
+	 * Key identifier for the use of the protection spell.
+	 */
+	private static final String KEY_IDENTIFIER_USE_PROTECTION_SPELL = "use_protection_spell";
+	/**
+	 * Key identifier for the use of the special skill.
+	 */
+	private static final String KEY_IDENTIFIER_USE_SPECIAL_SKILL = "use_special_skill";
+	/**
+	 * Key identifier for the username.
+	 */
+	private static final String KEY_IDENTIFIER_USERNAME = "username";
+	/**
+	 * Key identifier for the selected world.
+	 */
+	private static final String KEY_IDENTIFIER_WORLD = "world";
 	/**
 	 * Separator which separates several information in a key.
 	 */
@@ -101,44 +137,105 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 		mView.setStartButtonEnabled(true);
 		mView.setStopButtonEnabled(false);
 		mView.setSettingsButtonEnabled(true);
+		mSettingsDialog = null;
 	}
 
 	/**
 	 * Call whenever the save action is to be executed. This will save all
-	 * settings and close the settings dialog.
+	 * settings and close the settings dialog, if opened.
 	 */
 	public void executeSaveAction() {
-		// Driver settings
-		for (final EBrowser browser : EBrowser.values()) {
-			final JTextField field = mSettingsDialog.getBrowserDriverField(browser);
-			final String value = field.getText();
-			if (!value.equals(UNKNOWN_KEY_VALUE)) {
-				final String key = KEY_IDENTIFIER_DRIVER + KEY_INFO_SEPARATOR + browser;
-				setSetting(key, value);
+		// Save dialog settings if dialog is opened
+		if (mSettingsDialog != null) {
+			// Driver settings
+			for (final EBrowser browser : EBrowser.values()) {
+				final JTextField field = mSettingsDialog.getBrowserDriverField(browser);
+				final String value = field.getText();
+				if (!value.equals(UNKNOWN_KEY_VALUE)) {
+					final String key = KEY_IDENTIFIER_DRIVER + KEY_INFO_SEPARATOR + browser;
+					setSetting(key, value);
+				}
+			}
+
+			// Binary setting
+			final JTextField binaryField = mSettingsDialog.getBrowserBinaryField();
+			final String binaryValue = binaryField.getText();
+			if (!binaryValue.equals(UNKNOWN_KEY_VALUE)) {
+				final String key = KEY_IDENTIFIER_BINARY;
+				setSetting(key, binaryValue);
+			}
+
+			// Protection spell setting
+			final JTextField protectionSpellField = mSettingsDialog.getProtectionSpellField();
+			final String protectionSpellValue = protectionSpellField.getText();
+			if (!protectionSpellValue.equals(UNKNOWN_KEY_VALUE)) {
+				final String key = KEY_IDENTIFIER_PROTECTION_SPELL;
+				setSetting(key, protectionSpellValue);
 			}
 		}
 
-		// Binary setting
-		final JTextField binaryField = mSettingsDialog.getBrowserBinaryField();
-		final String binaryValue = binaryField.getText();
-		if (!binaryValue.equals(UNKNOWN_KEY_VALUE)) {
-			final String key = KEY_IDENTIFIER_BINARY;
-			setSetting(key, binaryValue);
+		// Save the current content of the main view
+		// Username
+		final String username = mView.getUsername();
+		if (!username.equals(UNKNOWN_KEY_VALUE)) {
+			final String key = KEY_IDENTIFIER_USERNAME;
+			setSetting(key, username);
 		}
 
-		// Protection spell setting
-		final JTextField protectionSpellField = mSettingsDialog.getProtectionSpellField();
-		final String protectionSpellValue = protectionSpellField.getText();
-		if (!protectionSpellValue.equals(UNKNOWN_KEY_VALUE)) {
-			final String key = KEY_IDENTIFIER_PROTECTION_SPELL;
-			setSetting(key, protectionSpellValue);
+		// Password
+		final String password = mView.getPassword();
+		if (!password.equals(UNKNOWN_KEY_VALUE)) {
+			final String key = KEY_IDENTIFIER_PASSWORD;
+			setSetting(key, password);
 		}
+
+		// World
+		final EWorld world = mView.getWorld();
+		if (world != null) {
+			final String key = KEY_IDENTIFIER_WORLD;
+			setSetting(key, world.toString());
+		}
+
+		// Selected browser
+		final EBrowser browser = mView.getBrowser();
+		if (browser != null) {
+			final String key = KEY_IDENTIFIER_BROWSER;
+			setSetting(key, browser.toString());
+		}
+
+		// Movement options
+		final Set<EMoveType> selectedOptions = mView.getMovementOptions();
+		for (final EMoveType moveType : EMoveType.values()) {
+			final boolean value = selectedOptions.contains(moveType);
+			final String key = KEY_IDENTIFIER_MOVEMENT_OPTION + KEY_INFO_SEPARATOR + moveType;
+			setSetting(key, Boolean.toString(value));
+		}
+
+		// Tasks
+		final Set<EKivaTask> selectedTasks = mView.getKivaTasks();
+		for (final EKivaTask task : EKivaTask.values()) {
+			final boolean value = selectedTasks.contains(task);
+			final String key = KEY_IDENTIFIER_TASK + KEY_INFO_SEPARATOR + task;
+			setSetting(key, Boolean.toString(value));
+		}
+
+		// Use protection spell setting
+		final boolean useProtectionSpell = mView.isUseProtectionSpellChecked();
+		String key = KEY_IDENTIFIER_USE_PROTECTION_SPELL;
+		setSetting(key, Boolean.toString(useProtectionSpell));
+
+		// Use special skill setting
+		final boolean useSpecialSkill = mView.isUseSpecialSkillChecked();
+		key = KEY_IDENTIFIER_USE_SPECIAL_SKILL;
+		setSetting(key, Boolean.toString(useSpecialSkill));
 
 		// Save settings
 		mSettings.saveSettings(this);
 
-		// Close the settings dialog
-		mSettingsDialog.dispatchEvent(new WindowEvent(mSettingsDialog, WindowEvent.WINDOW_CLOSING));
+		// Close the settings dialog, if opened
+		if (mSettingsDialog != null) {
+			mSettingsDialog.dispatchEvent(new WindowEvent(mSettingsDialog, WindowEvent.WINDOW_CLOSING));
+		}
 	}
 
 	/**
@@ -157,7 +254,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 		linkDialogListener();
 
 		// Load settings to the store
-		passSettingsToView();
+		passSettingsToSettingsDialogView();
 		mSettingsDialog.setVisible(true);
 	}
 
@@ -244,6 +341,46 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 		mSettings.loadSettings(this);
 	}
 
+	/**
+	 * Passes the settings of the store to the main view for display.
+	 */
+	public void passSettingsToMainView() {
+		for (final Entry<String, String> entry : mSettingsStore.entrySet()) {
+			final String[] keySplit = entry.getKey().split(KEY_INFO_SEPARATOR);
+			final String keyIdentifier = keySplit[0];
+
+			if (keyIdentifier.equals(KEY_IDENTIFIER_USERNAME)) {
+				// Username
+				mView.setUsername(entry.getValue());
+			} else if (keyIdentifier.equals(KEY_IDENTIFIER_PASSWORD)) {
+				// Password
+				mView.setPassword(entry.getValue());
+			} else if (keyIdentifier.equals(KEY_IDENTIFIER_WORLD)) {
+				// World
+				mView.setWorld(EWorld.valueOf(entry.getValue()));
+			} else if (keyIdentifier.equals(KEY_IDENTIFIER_BROWSER)) {
+				// Browser
+				mView.setBrowser(EBrowser.valueOf(entry.getValue()));
+			} else if (keyIdentifier.equals(KEY_IDENTIFIER_MOVEMENT_OPTION)) {
+				// Movement option
+				final EMoveType moveType = EMoveType.valueOf(keySplit[1]);
+				final boolean isSelected = Boolean.valueOf(entry.getValue());
+				mView.setMovementOption(moveType, isSelected);
+			} else if (keyIdentifier.equals(KEY_IDENTIFIER_TASK)) {
+				// Task
+				final EKivaTask task = EKivaTask.valueOf(keySplit[1]);
+				final boolean isSelected = Boolean.valueOf(entry.getValue());
+				mView.setKivaTask(task, isSelected);
+			} else if (keyIdentifier.equals(KEY_IDENTIFIER_USE_PROTECTION_SPELL)) {
+				// Use protection spell setting
+				mView.setUseProtectionSpell(Boolean.valueOf(entry.getValue()));
+			} else if (keyIdentifier.equals(KEY_IDENTIFIER_USE_SPECIAL_SKILL)) {
+				// Use special skill setting
+				mView.setUseSpecialSkill(Boolean.valueOf(entry.getValue()));
+			}
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -288,9 +425,9 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	}
 
 	/**
-	 * Passes the settings of the store to the view for display.
+	 * Passes the settings of the store to the settings dialog view for display.
 	 */
-	private void passSettingsToView() {
+	private void passSettingsToSettingsDialogView() {
 		for (final Entry<String, String> entry : mSettingsStore.entrySet()) {
 			final String[] keySplit = entry.getKey().split(KEY_INFO_SEPARATOR);
 			final String keyIdentifier = keySplit[0];
@@ -308,11 +445,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 				// Protection spell settings
 				final JTextField field = mSettingsDialog.getProtectionSpellField();
 				field.setText(entry.getValue());
-			} else {
-				throw new IllegalStateException(
-						"The given setting key is not supported by this method: " + entry.getKey());
 			}
 		}
 	}
-
 }

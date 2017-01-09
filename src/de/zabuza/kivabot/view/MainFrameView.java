@@ -304,6 +304,58 @@ public final class MainFrameView {
 	}
 
 	/**
+	 * Sets the selected browser.
+	 * 
+	 * @param browser
+	 *            The browser to select
+	 */
+	public void setBrowser(final EBrowser browser) {
+		mBrowserChoiceBox.setSelectedItem(browser);
+	}
+
+	/**
+	 * Sets the selection state of the given kiva task option.
+	 * 
+	 * @param task
+	 *            The option to set its state
+	 * @param isSelected
+	 *            Whether the corresponding option box should be selected or not
+	 */
+	public void setKivaTask(final EKivaTask task, final boolean isSelected) {
+		for (final JCheckBox taskBox : mTaskList) {
+			final EKivaTask currentTask = EKivaTask.valueOf(taskBox.getText());
+			if (task == currentTask) {
+				taskBox.setSelected(isSelected);
+				break;
+			}
+		}
+	}
+
+	/**
+	 * Sets the selection state of the given movement option.
+	 * 
+	 * @param movementOption
+	 *            The option to set its state
+	 * @param isSelected
+	 *            Whether the corresponding option box should be selected or not
+	 */
+	public void setMovementOption(final EMoveType movementOption, final boolean isSelected) {
+		if (movementOption == EMoveType.BLUE_SPHERE) {
+			mBlueSphereMovementOptionsBox.setSelected(isSelected);
+		}
+	}
+
+	/**
+	 * Sets the input password.
+	 * 
+	 * @param password
+	 *            The password to set
+	 */
+	public void setPassword(final String password) {
+		mPasswordField.setText(password);
+	}
+
+	/**
 	 * Enables or disables the settings button.
 	 * 
 	 * @param enabled
@@ -331,6 +383,46 @@ public final class MainFrameView {
 	 */
 	public void setStopButtonEnabled(final boolean enabled) {
 		mStopBtn.setEnabled(enabled);
+	}
+
+	/**
+	 * Sets whether the use protection spell box is checked or not.
+	 * 
+	 * @param isChecked
+	 *            Whether the protection spell box should be checked or not
+	 */
+	public void setUseProtectionSpell(final boolean isChecked) {
+		mUseProtectionSpell.setSelected(isChecked);
+	}
+
+	/**
+	 * Sets the input username.
+	 * 
+	 * @param username
+	 *            The username to set
+	 */
+	public void setUsername(final String username) {
+		mUsernameField.setText(username);
+	}
+
+	/**
+	 * Sets whether the use special skill box is checked or not.
+	 * 
+	 * @param isChecked
+	 *            Whether the special skill box should be checked or not
+	 */
+	public void setUseSpecialSkill(final boolean isChecked) {
+		mUseSpecialSkill.setSelected(isChecked);
+	}
+
+	/**
+	 * Sets the selected world.
+	 * 
+	 * @param world
+	 *            The world to select
+	 */
+	public void setWorld(final EWorld world) {
+		mWorldChoiceBox.setSelectedItem(world);
 	}
 
 	/**

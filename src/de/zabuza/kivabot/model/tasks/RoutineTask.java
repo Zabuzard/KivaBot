@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.Optional;
 import java.util.Set;
 
-import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import de.zabuza.kivabot.controller.MainFrameController;
 import de.zabuza.kivabot.controller.logging.Logger;
@@ -157,7 +157,7 @@ public final class RoutineTask extends Thread implements ITask {
 			// Create sparkle API
 			mLogger.logInfo("Starting Sparkle...", Logger.TOP_LEVEL);
 			mApi = new Sparkle(mBrowser);
-			final Capabilities capabilities = mApi.createCapabilities(mBrowser,
+			final DesiredCapabilities capabilities = mApi.createCapabilities(mBrowser,
 					mBrowserSettingsProvider.getDriverForBrowser(mBrowser),
 					mBrowserSettingsProvider.getBrowserBinary());
 			mApi.setCapabilities(capabilities);

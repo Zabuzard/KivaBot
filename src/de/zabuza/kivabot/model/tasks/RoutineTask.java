@@ -259,10 +259,10 @@ public final class RoutineTask extends Thread implements ITask {
 	private void terminate() {
 		if (mApi != null) {
 			if (mInstance != null) {
-				mApi.logout(mInstance);
+				mApi.logout(mInstance, false);
 				mInstance = null;
 			}
-			mApi.shutdown();
+			mApi.shutdown(false);
 		}
 	}
 }

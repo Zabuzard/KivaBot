@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.util.Optional;
 import java.util.Set;
 
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import de.zabuza.kivabot.controller.MainFrameController;
@@ -26,14 +25,6 @@ import de.zabuza.sparkle.webdriver.EBrowser;
  *
  */
 public final class RoutineTask extends Thread implements ITask {
-	/**
-	 * The argument to use for disabling the info bars in Chrome.
-	 */
-	private static final String CHROME_DISABLE_INFO_BARS_ARGUMENT = "disable-infobars";
-	/**
-	 * The key to use for setting the user profile in Chrome.
-	 */
-	private static final String CHROME_USER_PROFILE_KEY = "user-data-dir";
 	/**
 	 * The Freewar API to use.
 	 */
@@ -166,18 +157,8 @@ public final class RoutineTask extends Thread implements ITask {
 			mLogger.logInfo("Starting Sparkle...", Logger.TOP_LEVEL);
 			mApi = new Sparkle(mBrowser);
 			final DesiredCapabilities capabilities = mApi.createCapabilities(mBrowser,
-					mBrowserSettingsProvider.getDriverForBrowser(mBrowser),
-					mBrowserSettingsProvider.getBrowserBinary());
-
-			final String userProfile = mBrowserSettingsProvider.getUserProfile();
-			// Try to set the profile if browser is chrome
-			if (mBrowser == EBrowser.CHROME) {
-				// At the moment only Chrome supports local storage technology
-				final ChromeOptions options = new ChromeOptions();
-				options.addArguments(CHROME_USER_PROFILE_KEY + "=" + userProfile);
-				options.addArguments(CHROME_DISABLE_INFO_BARS_ARGUMENT);
-				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-			}
+					mBrowserSettingsProvider.getDriverForBrowser(mBrowser), mBrowserSettingsProvider.getBrowserBinary(),
+					mBrowserSettingsProvider.getUserProfile());
 
 			mApi.setCapabilities(capabilities);
 			mLogger.logInfo("Sparkle started.", Logger.FIRST_LEVEL);

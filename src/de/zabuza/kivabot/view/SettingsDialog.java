@@ -27,9 +27,9 @@ import de.zabuza.sparkle.webdriver.EBrowser;
  */
 public final class SettingsDialog extends JDialog {
 	/**
-	 * The title of the binary panel.
+	 * The title of the browser panel.
 	 */
-	private final static String BINARY_TITLE = "Binary";
+	private final static String BROWSER_TITLE = "Browser";
 	/**
 	 * The default amount of columns for fields of the view.
 	 */
@@ -57,7 +57,7 @@ public final class SettingsDialog extends JDialog {
 	/**
 	 * The height of the dialog.
 	 */
-	private final static int HEIGHT = 450;
+	private final static int HEIGHT = 480;
 	/**
 	 * The title of the miscellaneous panel.
 	 */
@@ -79,17 +79,17 @@ public final class SettingsDialog extends JDialog {
 	 */
 	private final static int WIDTH = 400;
 	/**
-	 * The binary panel of the dialog.
-	 */
-	private JPanel mBinaryPanel;
-	/**
 	 * Select binary button of the dialog for browsers.
 	 */
-	private JButton mBrowserBinaryBtn;
+	private JButton mBinaryBtn;
 	/**
 	 * The browser binary input field.
 	 */
-	private JTextField mBrowserBinaryField;
+	private JTextField mBinaryField;
+	/**
+	 * The browser panel of the dialog.
+	 */
+	private JPanel mBrowserPanel;
 	/**
 	 * The button of the dialog for canceling.
 	 */
@@ -170,6 +170,14 @@ public final class SettingsDialog extends JDialog {
 	 * The trailer panel of the dialog.
 	 */
 	private JPanel mTrailerPanel;
+	/**
+	 * Select user profile button of the dialog for browsers.
+	 */
+	private JButton mUserProfileBtn;
+	/**
+	 * The browser user profile input field.
+	 */
+	private JTextField mUserProfileField;
 
 	/**
 	 * Creates a new settings dialog window.
@@ -190,8 +198,8 @@ public final class SettingsDialog extends JDialog {
 	 * @param listener
 	 *            Listener to add
 	 */
-	public void addListenerToBrowserBinarySelectionAction(final ActionListener listener) {
-		mBrowserBinaryBtn.addActionListener(listener);
+	public void addListenerToBinarySelectionAction(final ActionListener listener) {
+		mBinaryBtn.addActionListener(listener);
 	}
 
 	/**
@@ -242,12 +250,23 @@ public final class SettingsDialog extends JDialog {
 	}
 
 	/**
-	 * Gets the browser binary field.
+	 * Adds an action listener to the given browser user binary selection
+	 * action.
 	 * 
-	 * @return The browser binary field
+	 * @param listener
+	 *            Listener to add
 	 */
-	public JTextField getBrowserBinaryField() {
-		return mBrowserBinaryField;
+	public void addListenerToUserProfileSelectionAction(final ActionListener listener) {
+		mUserProfileBtn.addActionListener(listener);
+	}
+
+	/**
+	 * Gets the binary field.
+	 * 
+	 * @return The binary field
+	 */
+	public JTextField getBinaryField() {
+		return mBinaryField;
 	}
 
 	/**
@@ -282,6 +301,15 @@ public final class SettingsDialog extends JDialog {
 	 */
 	public JTextField getProtectionSpellField() {
 		return mProtectionSpellMiscellaneousField;
+	}
+
+	/**
+	 * Gets the user profile field.
+	 * 
+	 * @return The user profile field
+	 */
+	public JTextField getUserProfileField() {
+		return mUserProfileField;
 	}
 
 	/**
@@ -345,18 +373,23 @@ public final class SettingsDialog extends JDialog {
 		mDriverPanel.add(mSafariBtn);
 		mElements.add(mSafariBtn);
 
-		mBrowserBinaryBtn = new JButton(SELECT_TITLE);
-		mBrowserBinaryBtn.setBounds(290, 30, 80, 20);
-		mBinaryPanel.add(mBrowserBinaryBtn);
-		mElements.add(mBrowserBinaryBtn);
+		mBinaryBtn = new JButton(SELECT_TITLE);
+		mBinaryBtn.setBounds(290, 30, 80, 20);
+		mBrowserPanel.add(mBinaryBtn);
+		mElements.add(mBinaryBtn);
+
+		mUserProfileBtn = new JButton(SELECT_TITLE);
+		mUserProfileBtn.setBounds(290, 60, 80, 20);
+		mBrowserPanel.add(mUserProfileBtn);
+		mElements.add(mUserProfileBtn);
 
 		mSaveBtn = new JButton("Save");
-		mSaveBtn.setBounds((WIDTH / 2) - 100, 380, 80, 20);
+		mSaveBtn.setBounds((WIDTH / 2) - 100, 410, 80, 20);
 		mTrailerPanel.add(mSaveBtn);
 		mElements.add(mSaveBtn);
 
 		mCancelBtn = new JButton("Cancel");
-		mCancelBtn.setBounds((WIDTH / 2) + 20, 380, 80, 20);
+		mCancelBtn.setBounds((WIDTH / 2) + 20, 410, 80, 20);
 		mTrailerPanel.add(mCancelBtn);
 		mElements.add(mCancelBtn);
 	}
@@ -407,12 +440,19 @@ public final class SettingsDialog extends JDialog {
 		mElements.add(mSafariDriverField);
 		mSafariDriverField.setColumns(DEFAULT_FIELD_COLUMNS);
 
-		mBrowserBinaryField = new JTextField();
-		mBrowserBinaryField.setHorizontalAlignment(SwingConstants.LEFT);
-		mBrowserBinaryField.setBounds(80, 30, 200, 20);
-		mBinaryPanel.add(mBrowserBinaryField);
-		mElements.add(mBrowserBinaryField);
-		mBrowserBinaryField.setColumns(DEFAULT_FIELD_COLUMNS);
+		mBinaryField = new JTextField();
+		mBinaryField.setHorizontalAlignment(SwingConstants.LEFT);
+		mBinaryField.setBounds(80, 30, 200, 20);
+		mBrowserPanel.add(mBinaryField);
+		mElements.add(mBinaryField);
+		mBinaryField.setColumns(DEFAULT_FIELD_COLUMNS);
+
+		mUserProfileField = new JTextField();
+		mUserProfileField.setHorizontalAlignment(SwingConstants.LEFT);
+		mUserProfileField.setBounds(80, 60, 200, 20);
+		mBrowserPanel.add(mUserProfileField);
+		mElements.add(mUserProfileField);
+		mUserProfileField.setColumns(DEFAULT_FIELD_COLUMNS);
 
 		mProtectionSpellMiscellaneousField = new JTextField(DEFAULT_PROTECTION_SPELL);
 		mProtectionSpellMiscellaneousField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -462,11 +502,17 @@ public final class SettingsDialog extends JDialog {
 		mSafariDriverLbl.setBounds(10, 180, 60, 14);
 		mDriverPanel.add(mSafariDriverLbl);
 
-		JLabel mBrowserBinaryLbl = new JLabel("Browser:");
-		mBrowserBinaryLbl.setHorizontalAlignment(SwingConstants.RIGHT);
-		mBrowserBinaryLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
-		mBrowserBinaryLbl.setBounds(10, 30, 60, 14);
-		mBinaryPanel.add(mBrowserBinaryLbl);
+		JLabel mBinaryLbl = new JLabel("Binary:");
+		mBinaryLbl.setHorizontalAlignment(SwingConstants.RIGHT);
+		mBinaryLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
+		mBinaryLbl.setBounds(10, 30, 60, 14);
+		mBrowserPanel.add(mBinaryLbl);
+
+		JLabel mUserProfileLbl = new JLabel("Profile:");
+		mUserProfileLbl.setHorizontalAlignment(SwingConstants.RIGHT);
+		mUserProfileLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
+		mUserProfileLbl.setBounds(10, 60, 60, 14);
+		mBrowserPanel.add(mUserProfileLbl);
 
 		JLabel mProtectionSpellMiscellaneousLbl = new JLabel("Protection spell:");
 		mProtectionSpellMiscellaneousLbl.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -486,22 +532,22 @@ public final class SettingsDialog extends JDialog {
 		mContainer.add(mDriverPanel);
 		mDriverPanel.setLayout(null);
 
-		mBinaryPanel = new JPanel();
-		mBinaryPanel.setBounds(10, 230, WIDTH - 25, 70);
-		TitledBorder titledBorderBinary = BorderFactory.createTitledBorder(BINARY_TITLE);
-		mBinaryPanel.setBorder(titledBorderBinary);
-		mContainer.add(mBinaryPanel);
-		mBinaryPanel.setLayout(null);
+		mBrowserPanel = new JPanel();
+		mBrowserPanel.setBounds(10, 230, WIDTH - 25, 100);
+		TitledBorder titledBorderBinary = BorderFactory.createTitledBorder(BROWSER_TITLE);
+		mBrowserPanel.setBorder(titledBorderBinary);
+		mContainer.add(mBrowserPanel);
+		mBrowserPanel.setLayout(null);
 
 		mMiscellaneousPanel = new JPanel();
-		mMiscellaneousPanel.setBounds(10, 300, WIDTH - 25, 70);
+		mMiscellaneousPanel.setBounds(10, 330, WIDTH - 25, 70);
 		TitledBorder titledBorderMiscellaneous = BorderFactory.createTitledBorder(MISCELLANEOUS_TITLE);
 		mMiscellaneousPanel.setBorder(titledBorderMiscellaneous);
 		mContainer.add(mMiscellaneousPanel);
 		mMiscellaneousPanel.setLayout(null);
 
 		mTrailerPanel = new JPanel();
-		mTrailerPanel.setBounds(10, 370, WIDTH - 25, 80);
+		mTrailerPanel.setBounds(10, 400, WIDTH - 25, 80);
 		mContainer.add(mTrailerPanel);
 		mTrailerPanel.setLayout(null);
 	}

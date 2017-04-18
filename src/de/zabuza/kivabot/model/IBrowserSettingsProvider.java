@@ -24,4 +24,11 @@ public interface IBrowserSettingsProvider {
 	 * @return The driver for the browser or <tt>null</tt> if not set
 	 */
 	public String getDriverForBrowser(final EBrowser browser);
+
+	/**
+	 * Gets the path to the user profile to use.
+	 * 
+	 * @return The path to the user profile to use or <tt>null</tt> if not set
+	 */
+	public String getUserProfile();
 }

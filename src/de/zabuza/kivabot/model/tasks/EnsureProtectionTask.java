@@ -48,10 +48,10 @@ public class EnsureProtectionTask implements ITask {
 	 */
 	public EnsureProtectionTask(final IFreewarInstance instance, final String protectionSpellName,
 			final Logger logger) {
-		mInstance = instance;
-		mProtectionSpellName = protectionSpellName;
-		mLogger = logger;
-		mInterrupted = false;
+		this.mInstance = instance;
+		this.mProtectionSpellName = protectionSpellName;
+		this.mLogger = logger;
+		this.mInterrupted = false;
 	}
 
 	/*
@@ -61,7 +61,7 @@ public class EnsureProtectionTask implements ITask {
 	 */
 	@Override
 	public void interrupt() {
-		mInterrupted = true;
+		this.mInterrupted = true;
 	}
 
 	/*
@@ -71,7 +71,7 @@ public class EnsureProtectionTask implements ITask {
 	 */
 	@Override
 	public boolean isInterrupted() {
-		return mInterrupted;
+		return this.mInterrupted;
 	}
 
 	/*
@@ -82,20 +82,20 @@ public class EnsureProtectionTask implements ITask {
 	@Override
 	public void start() {
 		// Ensuring a protection
-		mLogger.logInfo("Ensuring protection...", Logger.TOP_LEVEL);
+		this.mLogger.logInfo("Ensuring protection...", Logger.TOP_LEVEL);
 
 		// Check whether the player is already protected
-		final IPlayer player = mInstance.getPlayer();
+		final IPlayer player = this.mInstance.getPlayer();
 		final String status = player.getStatus();
 		if (status.contains(STATUS_PROTECTION_NAME)) {
-			mLogger.logInfo("Protection is already active.", Logger.FIRST_LEVEL);
+			this.mLogger.logInfo("Protection is already active.", Logger.FIRST_LEVEL);
 		} else {
 			// Activate the protection spell item
-			final IInventory inventory = mInstance.getInventory();
-			if (inventory.hasItem(mProtectionSpellName) && inventory.activateItem(mProtectionSpellName)) {
-				mLogger.logInfo("Activated protection spell.", Logger.FIRST_LEVEL);
+			final IInventory inventory = this.mInstance.getInventory();
+			if (inventory.hasItem(this.mProtectionSpellName) && inventory.activateItem(this.mProtectionSpellName)) {
+				this.mLogger.logInfo("Activated protection spell.", Logger.FIRST_LEVEL);
 			} else {
-				mLogger.logError("Protection spell not found.", Logger.FIRST_LEVEL);
+				this.mLogger.logError("Protection spell not found.", Logger.FIRST_LEVEL);
 				throw new AbortTaskException();
 			}
 		}

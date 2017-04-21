@@ -26,7 +26,7 @@ public final class CloseAtCancelActionListener implements ActionListener {
 	 *            The dialog of the settings
 	 */
 	public CloseAtCancelActionListener(final SettingsDialog dialog) {
-		mDialog = dialog;
+		this.mDialog = dialog;
 	}
 
 	/*
@@ -37,6 +37,6 @@ public final class CloseAtCancelActionListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		mDialog.dispatchEvent(new WindowEvent(mDialog, WindowEvent.WINDOW_CLOSING));
+		this.mDialog.dispatchEvent(new WindowEvent(this.mDialog, WindowEvent.WINDOW_CLOSING));
 	}
 }

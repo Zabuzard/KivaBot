@@ -54,15 +54,15 @@ public final class FileChooseSetActionListener implements ActionListener {
 	 */
 	public FileChooseSetActionListener(final SettingsDialog parent, final JTextField textField,
 			final boolean useDirectoryOnlyMode) {
-		mTextField = textField;
-		mParent = parent;
-		mUseDirectoryOnlyMode = useDirectoryOnlyMode;
-		mFileChooser = new JFileChooser();
-		if (mUseDirectoryOnlyMode) {
-			mFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			mFileChooser.setDialogTitle(DIALOG_TITLE_DIRECTORY);
+		this.mTextField = textField;
+		this.mParent = parent;
+		this.mUseDirectoryOnlyMode = useDirectoryOnlyMode;
+		this.mFileChooser = new JFileChooser();
+		if (this.mUseDirectoryOnlyMode) {
+			this.mFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			this.mFileChooser.setDialogTitle(DIALOG_TITLE_DIRECTORY);
 		} else {
-			mFileChooser.setDialogTitle(DIALOG_TITLE_FILE);
+			this.mFileChooser.setDialogTitle(DIALOG_TITLE_FILE);
 		}
 	}
 
@@ -77,9 +77,9 @@ public final class FileChooseSetActionListener implements ActionListener {
 		String filePath = null;
 
 		// Open file chooser dialog
-		int option = mFileChooser.showOpenDialog(mParent);
+		int option = this.mFileChooser.showOpenDialog(this.mParent);
 		if (option == JFileChooser.APPROVE_OPTION) {
-			filePath = mFileChooser.getSelectedFile().getAbsolutePath();
+			filePath = this.mFileChooser.getSelectedFile().getAbsolutePath();
 		} else if (option == JFileChooser.CANCEL_OPTION) {
 			// Do nothing, just let filePath stay null
 		} else {
@@ -88,7 +88,7 @@ public final class FileChooseSetActionListener implements ActionListener {
 
 		// Put the path to the file in the text field
 		if (filePath != null) {
-			mTextField.setText(filePath);
+			this.mTextField.setText(filePath);
 		}
 	}
 }

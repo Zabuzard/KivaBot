@@ -140,9 +140,9 @@ public final class MainFrameView {
 	 *            Frame of the view
 	 */
 	public MainFrameView(final JFrame frame) {
-		mFrame = frame;
-		mContainer = frame.getContentPane();
-		mInputElements = new LinkedList<>();
+		this.mFrame = frame;
+		this.mContainer = frame.getContentPane();
+		this.mInputElements = new LinkedList<>();
 		initialize();
 	}
 
@@ -153,7 +153,7 @@ public final class MainFrameView {
 	 *            Listener to add
 	 */
 	public void addListenerToSettingsAction(final ActionListener listener) {
-		mSettingsBtn.addActionListener(listener);
+		this.mSettingsBtn.addActionListener(listener);
 	}
 
 	/**
@@ -163,7 +163,7 @@ public final class MainFrameView {
 	 *            Listener to add
 	 */
 	public void addListenerToStartAction(final ActionListener listener) {
-		mStartBtn.addActionListener(listener);
+		this.mStartBtn.addActionListener(listener);
 	}
 
 	/**
@@ -173,7 +173,7 @@ public final class MainFrameView {
 	 *            Listener to add
 	 */
 	public void addListenerToStopAction(final ActionListener listener) {
-		mStopBtn.addActionListener(listener);
+		this.mStopBtn.addActionListener(listener);
 	}
 
 	/**
@@ -183,7 +183,7 @@ public final class MainFrameView {
 	 *            Listener to add
 	 */
 	public void addWindowListener(final WindowListener listener) {
-		mFrame.addWindowListener(listener);
+		this.mFrame.addWindowListener(listener);
 	}
 
 	/**
@@ -192,7 +192,7 @@ public final class MainFrameView {
 	 * @return The selected input browser
 	 */
 	public EBrowser getBrowser() {
-		return (EBrowser) mBrowserChoiceBox.getSelectedItem();
+		return (EBrowser) this.mBrowserChoiceBox.getSelectedItem();
 	}
 
 	/**
@@ -202,7 +202,7 @@ public final class MainFrameView {
 	 */
 	public Set<EKivaTask> getKivaTasks() {
 		final Set<EKivaTask> kivaTasks = new HashSet<>();
-		for (final JCheckBox taskBox : mTaskList) {
+		for (final JCheckBox taskBox : this.mTaskList) {
 			if (taskBox.isSelected()) {
 				final String text = taskBox.getText();
 				kivaTasks.add(EKivaTask.valueOf(text));
@@ -218,7 +218,7 @@ public final class MainFrameView {
 	 */
 	public Set<EMoveType> getMovementOptions() {
 		final Set<EMoveType> movementOptions = new HashSet<>();
-		if (mBlueSphereMovementOptionsBox.isSelected()) {
+		if (this.mBlueSphereMovementOptionsBox.isSelected()) {
 			movementOptions.add(EMoveType.BLUE_SPHERE);
 		}
 		return movementOptions;
@@ -230,7 +230,7 @@ public final class MainFrameView {
 	 * @return The input password
 	 */
 	public String getPassword() {
-		return mPasswordField.getText();
+		return this.mPasswordField.getText();
 	}
 
 	/**
@@ -239,7 +239,7 @@ public final class MainFrameView {
 	 * @return The input username
 	 */
 	public String getUsername() {
-		return mUsernameField.getText();
+		return this.mUsernameField.getText();
 	}
 
 	/**
@@ -248,7 +248,7 @@ public final class MainFrameView {
 	 * @return The selected input world
 	 */
 	public EWorld getWorld() {
-		return (EWorld) mWorldChoiceBox.getSelectedItem();
+		return (EWorld) this.mWorldChoiceBox.getSelectedItem();
 	}
 
 	/**
@@ -258,7 +258,7 @@ public final class MainFrameView {
 	 *         <tt>false</tt> otherwise
 	 */
 	public boolean isUseProtectionSpellChecked() {
-		return mUseProtectionSpell.isSelected();
+		return this.mUseProtectionSpell.isSelected();
 	}
 
 	/**
@@ -268,7 +268,7 @@ public final class MainFrameView {
 	 *         <tt>false</tt> otherwise
 	 */
 	public boolean isUseSpecialSkillChecked() {
-		return mUseSpecialSkill.isSelected();
+		return this.mUseSpecialSkill.isSelected();
 	}
 
 	/**
@@ -298,7 +298,7 @@ public final class MainFrameView {
 	 *            Whether the fields should be enabled or disabled
 	 */
 	public void setAllInputEnabled(final boolean enabled) {
-		for (JComponent element : mInputElements) {
+		for (JComponent element : this.mInputElements) {
 			element.setEnabled(enabled);
 		}
 	}
@@ -310,7 +310,7 @@ public final class MainFrameView {
 	 *            The browser to select
 	 */
 	public void setBrowser(final EBrowser browser) {
-		mBrowserChoiceBox.setSelectedItem(browser);
+		this.mBrowserChoiceBox.setSelectedItem(browser);
 	}
 
 	/**
@@ -322,7 +322,7 @@ public final class MainFrameView {
 	 *            Whether the corresponding option box should be selected or not
 	 */
 	public void setKivaTask(final EKivaTask task, final boolean isSelected) {
-		for (final JCheckBox taskBox : mTaskList) {
+		for (final JCheckBox taskBox : this.mTaskList) {
 			final EKivaTask currentTask = EKivaTask.valueOf(taskBox.getText());
 			if (task == currentTask) {
 				taskBox.setSelected(isSelected);
@@ -341,7 +341,7 @@ public final class MainFrameView {
 	 */
 	public void setMovementOption(final EMoveType movementOption, final boolean isSelected) {
 		if (movementOption == EMoveType.BLUE_SPHERE) {
-			mBlueSphereMovementOptionsBox.setSelected(isSelected);
+			this.mBlueSphereMovementOptionsBox.setSelected(isSelected);
 		}
 	}
 
@@ -352,7 +352,7 @@ public final class MainFrameView {
 	 *            The password to set
 	 */
 	public void setPassword(final String password) {
-		mPasswordField.setText(password);
+		this.mPasswordField.setText(password);
 	}
 
 	/**
@@ -362,7 +362,7 @@ public final class MainFrameView {
 	 *            Whether the button should be enabled or disabled
 	 */
 	public void setSettingsButtonEnabled(final boolean enabled) {
-		mSettingsBtn.setEnabled(enabled);
+		this.mSettingsBtn.setEnabled(enabled);
 	}
 
 	/**
@@ -372,7 +372,7 @@ public final class MainFrameView {
 	 *            Whether the button should be enabled or disabled
 	 */
 	public void setStartButtonEnabled(final boolean enabled) {
-		mStartBtn.setEnabled(enabled);
+		this.mStartBtn.setEnabled(enabled);
 	}
 
 	/**
@@ -382,7 +382,7 @@ public final class MainFrameView {
 	 *            Whether the button should be enabled or disabled
 	 */
 	public void setStopButtonEnabled(final boolean enabled) {
-		mStopBtn.setEnabled(enabled);
+		this.mStopBtn.setEnabled(enabled);
 	}
 
 	/**
@@ -392,7 +392,7 @@ public final class MainFrameView {
 	 *            Whether the protection spell box should be checked or not
 	 */
 	public void setUseProtectionSpell(final boolean isChecked) {
-		mUseProtectionSpell.setSelected(isChecked);
+		this.mUseProtectionSpell.setSelected(isChecked);
 	}
 
 	/**
@@ -402,7 +402,7 @@ public final class MainFrameView {
 	 *            The username to set
 	 */
 	public void setUsername(final String username) {
-		mUsernameField.setText(username);
+		this.mUsernameField.setText(username);
 	}
 
 	/**
@@ -412,7 +412,7 @@ public final class MainFrameView {
 	 *            Whether the special skill box should be checked or not
 	 */
 	public void setUseSpecialSkill(final boolean isChecked) {
-		mUseSpecialSkill.setSelected(isChecked);
+		this.mUseSpecialSkill.setSelected(isChecked);
 	}
 
 	/**
@@ -422,7 +422,7 @@ public final class MainFrameView {
 	 *            The world to select
 	 */
 	public void setWorld(final EWorld world) {
-		mWorldChoiceBox.setSelectedItem(world);
+		this.mWorldChoiceBox.setSelectedItem(world);
 	}
 
 	/**
@@ -438,14 +438,14 @@ public final class MainFrameView {
 		AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, color);
 
 		aset = sc.addAttribute(aset, StyleConstants.FontFamily, DEFAULT_FONT);
-		aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+		aset = sc.addAttribute(aset, StyleConstants.Alignment, Integer.valueOf(StyleConstants.ALIGN_JUSTIFIED));
 
-		int len = mLogArea.getDocument().getLength();
-		mLogArea.setCaretPosition(len);
-		mLogArea.setCharacterAttributes(aset, false);
-		mLogArea.setEditable(true);
-		mLogArea.replaceSelection(message);
-		mLogArea.setEditable(false);
+		int len = this.mLogArea.getDocument().getLength();
+		this.mLogArea.setCaretPosition(len);
+		this.mLogArea.setCharacterAttributes(aset, false);
+		this.mLogArea.setEditable(true);
+		this.mLogArea.replaceSelection(message);
+		this.mLogArea.setEditable(false);
 	}
 
 	/**
@@ -465,90 +465,90 @@ public final class MainFrameView {
 	 * Initialize the buttons.
 	 */
 	private void initializeButtons() {
-		mStartBtn = new JButton("Start");
-		mStartBtn.setBounds(200, 210, 100, 23);
-		mMainPanel.add(mStartBtn);
+		this.mStartBtn = new JButton("Start");
+		this.mStartBtn.setBounds(200, 210, 100, 23);
+		this.mMainPanel.add(this.mStartBtn);
 
-		mStopBtn = new JButton("Stop");
-		mStopBtn.setBounds(320, 210, 100, 23);
-		mMainPanel.add(mStopBtn);
+		this.mStopBtn = new JButton("Stop");
+		this.mStopBtn.setBounds(320, 210, 100, 23);
+		this.mMainPanel.add(this.mStopBtn);
 
-		mSettingsBtn = new LinkButton("Settings");
-		mSettingsBtn.setBounds(350, 0, 90, 23);
-		mTrailerPanel.add(mSettingsBtn);
+		this.mSettingsBtn = new LinkButton("Settings");
+		this.mSettingsBtn.setBounds(350, 0, 90, 23);
+		this.mTrailerPanel.add(this.mSettingsBtn);
 	}
 
 	/**
 	 * Initialize the text fields.
 	 */
 	private void initializeInputFields() {
-		mBlueSphereMovementOptionsBox = new JCheckBox(EMoveType.BLUE_SPHERE.name(), true);
-		mBlueSphereMovementOptionsBox.setHorizontalAlignment(SwingConstants.LEFT);
-		mBlueSphereMovementOptionsBox.setBounds(0, 20, 150, 20);
-		mMainPanel.add(mBlueSphereMovementOptionsBox);
-		mInputElements.add(mBlueSphereMovementOptionsBox);
+		this.mBlueSphereMovementOptionsBox = new JCheckBox(EMoveType.BLUE_SPHERE.name(), true);
+		this.mBlueSphereMovementOptionsBox.setHorizontalAlignment(SwingConstants.LEFT);
+		this.mBlueSphereMovementOptionsBox.setBounds(0, 20, 150, 20);
+		this.mMainPanel.add(this.mBlueSphereMovementOptionsBox);
+		this.mInputElements.add(this.mBlueSphereMovementOptionsBox);
 
-		mUseProtectionSpell = new JCheckBox("Use protection spell", true);
-		mUseProtectionSpell.setHorizontalAlignment(SwingConstants.LEFT);
-		mUseProtectionSpell.setBounds(0, 70, 150, 20);
-		mMainPanel.add(mUseProtectionSpell);
-		mInputElements.add(mUseProtectionSpell);
+		this.mUseProtectionSpell = new JCheckBox("Use protection spell", true);
+		this.mUseProtectionSpell.setHorizontalAlignment(SwingConstants.LEFT);
+		this.mUseProtectionSpell.setBounds(0, 70, 150, 20);
+		this.mMainPanel.add(this.mUseProtectionSpell);
+		this.mInputElements.add(this.mUseProtectionSpell);
 
-		mUseSpecialSkill = new JCheckBox("Use special skill", false);
-		mUseSpecialSkill.setHorizontalAlignment(SwingConstants.LEFT);
-		mUseSpecialSkill.setBounds(0, 90, 150, 20);
-		mMainPanel.add(mUseSpecialSkill);
-		mInputElements.add(mUseSpecialSkill);
+		this.mUseSpecialSkill = new JCheckBox("Use special skill", false);
+		this.mUseSpecialSkill.setHorizontalAlignment(SwingConstants.LEFT);
+		this.mUseSpecialSkill.setBounds(0, 90, 150, 20);
+		this.mMainPanel.add(this.mUseSpecialSkill);
+		this.mInputElements.add(this.mUseSpecialSkill);
 
 		final int taskBoxInitialY = 140;
 		final int taskBoxYPadding = 20;
 		final EKivaTask[] tasks = EKivaTask.values();
-		mTaskList = new LinkedList<>();
+		this.mTaskList = new LinkedList<>();
 		for (int i = 0; i < tasks.length; i++) {
 			final EKivaTask task = tasks[i];
 			final JCheckBox taskBox = new JCheckBox(task.name(), true);
 			taskBox.setHorizontalAlignment(SwingConstants.LEFT);
 			taskBox.setBounds(0, taskBoxInitialY + (i * taskBoxYPadding), 180, 20);
-			mMainPanel.add(taskBox);
-			mInputElements.add(taskBox);
-			mTaskList.add(taskBox);
+			this.mMainPanel.add(taskBox);
+			this.mInputElements.add(taskBox);
+			this.mTaskList.add(taskBox);
 		}
 
-		mUsernameField = new JTextField();
-		mUsernameField.setHorizontalAlignment(SwingConstants.LEFT);
-		mUsernameField.setBounds((mMainPanel.getWidth() / 2) + 90, 0, 123, 20);
-		mMainPanel.add(mUsernameField);
-		mInputElements.add(mUsernameField);
-		mUsernameField.setColumns(DEFAULT_FIELD_COLUMNS);
+		this.mUsernameField = new JTextField();
+		this.mUsernameField.setHorizontalAlignment(SwingConstants.LEFT);
+		this.mUsernameField.setBounds((this.mMainPanel.getWidth() / 2) + 90, 0, 123, 20);
+		this.mMainPanel.add(this.mUsernameField);
+		this.mInputElements.add(this.mUsernameField);
+		this.mUsernameField.setColumns(DEFAULT_FIELD_COLUMNS);
 
-		mPasswordField = new JPasswordField();
-		mPasswordField.setHorizontalAlignment(SwingConstants.LEFT);
-		mPasswordField.setBounds((mMainPanel.getWidth() / 2) + 90, 30, 123, 20);
-		mMainPanel.add(mPasswordField);
-		mInputElements.add(mPasswordField);
-		mPasswordField.setColumns(DEFAULT_FIELD_COLUMNS);
+		this.mPasswordField = new JPasswordField();
+		this.mPasswordField.setHorizontalAlignment(SwingConstants.LEFT);
+		this.mPasswordField.setBounds((this.mMainPanel.getWidth() / 2) + 90, 30, 123, 20);
+		this.mMainPanel.add(this.mPasswordField);
+		this.mInputElements.add(this.mPasswordField);
+		this.mPasswordField.setColumns(DEFAULT_FIELD_COLUMNS);
 
-		mWorldChoiceBox = new JComboBox<>();
+		this.mWorldChoiceBox = new JComboBox<>();
 		for (final EWorld world : EWorld.values()) {
-			mWorldChoiceBox.addItem(world);
+			this.mWorldChoiceBox.addItem(world);
 			if (world == EWorld.ONE) {
-				mWorldChoiceBox.setSelectedItem(world);
+				this.mWorldChoiceBox.setSelectedItem(world);
 			}
 		}
-		mWorldChoiceBox.setBounds((mMainPanel.getWidth() / 2) + 90, 60, 123, 20);
-		mMainPanel.add(mWorldChoiceBox);
-		mInputElements.add(mWorldChoiceBox);
+		this.mWorldChoiceBox.setBounds((this.mMainPanel.getWidth() / 2) + 90, 60, 123, 20);
+		this.mMainPanel.add(this.mWorldChoiceBox);
+		this.mInputElements.add(this.mWorldChoiceBox);
 
-		mBrowserChoiceBox = new JComboBox<>();
+		this.mBrowserChoiceBox = new JComboBox<>();
 		for (final EBrowser browser : EBrowser.values()) {
-			mBrowserChoiceBox.addItem(browser);
+			this.mBrowserChoiceBox.addItem(browser);
 			if (browser == EBrowser.CHROME) {
-				mBrowserChoiceBox.setSelectedItem(browser);
+				this.mBrowserChoiceBox.setSelectedItem(browser);
 			}
 		}
-		mBrowserChoiceBox.setBounds((mMainPanel.getWidth() / 2) + 90, 170, 123, 20);
-		mMainPanel.add(mBrowserChoiceBox);
-		mInputElements.add(mBrowserChoiceBox);
+		this.mBrowserChoiceBox.setBounds((this.mMainPanel.getWidth() / 2) + 90, 170, 123, 20);
+		this.mMainPanel.add(this.mBrowserChoiceBox);
+		this.mInputElements.add(this.mBrowserChoiceBox);
 	}
 
 	/**
@@ -559,71 +559,71 @@ public final class MainFrameView {
 		movementOptionsLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		movementOptionsLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
 		movementOptionsLbl.setBounds(0, 0, 120, 14);
-		mMainPanel.add(movementOptionsLbl);
+		this.mMainPanel.add(movementOptionsLbl);
 
 		final JLabel additionalOptionsLbl = new JLabel("Additional options:");
 		additionalOptionsLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		additionalOptionsLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
 		additionalOptionsLbl.setBounds(0, 50, 120, 14);
-		mMainPanel.add(additionalOptionsLbl);
+		this.mMainPanel.add(additionalOptionsLbl);
 
 		final JLabel tasksLbl = new JLabel("Tasks:");
 		tasksLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		tasksLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
 		tasksLbl.setBounds(0, 120, 60, 14);
-		mMainPanel.add(tasksLbl);
+		this.mMainPanel.add(tasksLbl);
 
 		final JLabel usernameLbl = new JLabel("Username:");
 		usernameLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		usernameLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
-		usernameLbl.setBounds((mMainPanel.getWidth() / 2) + 20, 0, 65, 14);
-		mMainPanel.add(usernameLbl);
+		usernameLbl.setBounds((this.mMainPanel.getWidth() / 2) + 20, 0, 65, 14);
+		this.mMainPanel.add(usernameLbl);
 
 		final JLabel passwordLbl = new JLabel("Password:");
 		passwordLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		passwordLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
-		passwordLbl.setBounds((mMainPanel.getWidth() / 2) + 20, 30, 65, 14);
-		mMainPanel.add(passwordLbl);
+		passwordLbl.setBounds((this.mMainPanel.getWidth() / 2) + 20, 30, 65, 14);
+		this.mMainPanel.add(passwordLbl);
 
 		final JLabel worldChoiceLbl = new JLabel("World:");
 		worldChoiceLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		worldChoiceLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
-		worldChoiceLbl.setBounds((mMainPanel.getWidth() / 2) + 20, 60, 65, 14);
-		mMainPanel.add(worldChoiceLbl);
+		worldChoiceLbl.setBounds((this.mMainPanel.getWidth() / 2) + 20, 60, 65, 14);
+		this.mMainPanel.add(worldChoiceLbl);
 
 		final JLabel browserChoiceLbl = new JLabel("Browser:");
 		browserChoiceLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		browserChoiceLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
-		browserChoiceLbl.setBounds((mMainPanel.getWidth() / 2) + 20, 170, 65, 14);
-		mMainPanel.add(browserChoiceLbl);
+		browserChoiceLbl.setBounds((this.mMainPanel.getWidth() / 2) + 20, 170, 65, 14);
+		this.mMainPanel.add(browserChoiceLbl);
 	}
 
 	/**
 	 * Initialize the panels.
 	 */
 	private void initializePanels() {
-		mMainPanel = new JPanel();
-		mMainPanel.setBounds(10, 10, WIDTH - 25, 240);
-		mContainer.add(mMainPanel);
-		mMainPanel.setLayout(null);
+		this.mMainPanel = new JPanel();
+		this.mMainPanel.setBounds(10, 10, WIDTH - 25, 240);
+		this.mContainer.add(this.mMainPanel);
+		this.mMainPanel.setLayout(null);
 
-		mLogPane = new JScrollPane();
-		mLogPane.setViewportBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		mLogPane.setBounds(10, 270, WIDTH - 25, 100);
-		mContainer.add(mLogPane);
+		this.mLogPane = new JScrollPane();
+		this.mLogPane.setViewportBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		this.mLogPane.setBounds(10, 270, WIDTH - 25, 100);
+		this.mContainer.add(this.mLogPane);
 
-		mTrailerPanel = new JPanel();
-		mTrailerPanel.setBounds(10, 370, WIDTH - 25, 50);
-		mContainer.add(mTrailerPanel);
-		mTrailerPanel.setLayout(null);
+		this.mTrailerPanel = new JPanel();
+		this.mTrailerPanel.setBounds(10, 370, WIDTH - 25, 50);
+		this.mContainer.add(this.mTrailerPanel);
+		this.mTrailerPanel.setLayout(null);
 	}
 
 	/**
 	 * Initialize the logging area.
 	 */
 	private void initializeTextAreas() {
-		mLogArea = new JTextPane();
-		mLogArea.setEditable(false);
-		mLogPane.setViewportView(mLogArea);
+		this.mLogArea = new JTextPane();
+		this.mLogArea.setEditable(false);
+		this.mLogPane.setViewportView(this.mLogArea);
 	}
 }

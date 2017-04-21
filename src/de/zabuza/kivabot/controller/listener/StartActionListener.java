@@ -24,7 +24,7 @@ public class StartActionListener implements ActionListener {
 	 *            Controller of the main frame
 	 */
 	public StartActionListener(final MainFrameController controller) {
-		mController = controller;
+		this.mController = controller;
 	}
 
 	/*
@@ -35,6 +35,6 @@ public class StartActionListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		mController.startRoutine();
+		this.mController.startRoutine();
 	}
 }

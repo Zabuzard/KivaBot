@@ -24,7 +24,7 @@ public final class SettingsActionListener implements ActionListener {
 	 *            Controller of the settings
 	 */
 	public SettingsActionListener(final SettingsController controller) {
-		mController = controller;
+		this.mController = controller;
 	}
 
 	/*
@@ -35,6 +35,6 @@ public final class SettingsActionListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		mController.executeSettingsAction();
+		this.mController.executeSettingsAction();
 	}
 }

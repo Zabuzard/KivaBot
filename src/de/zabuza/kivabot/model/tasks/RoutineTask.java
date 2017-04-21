@@ -115,21 +115,21 @@ public final class RoutineTask extends Thread implements ITask {
 			final Set<EMoveType> movementOptions, final Optional<String> protectionSpell, final boolean useSpecialSkill,
 			final Set<EKivaTask> subTasks, final Logger logger, final MainFrameController controller,
 			final IBrowserSettingsProvider browserSettingsProvider) {
-		mUsername = username;
-		mPassword = password;
-		mWorld = world;
-		mBrowser = browser;
-		mMovementOptions = movementOptions;
-		mProtectionSpell = protectionSpell;
-		mUseSpecialSkill = useSpecialSkill;
-		mSubTasks = subTasks;
-		mLogger = logger;
-		mController = controller;
-		mBrowserSettingsProvider = browserSettingsProvider;
+		this.mUsername = username;
+		this.mPassword = password;
+		this.mWorld = world;
+		this.mBrowser = browser;
+		this.mMovementOptions = movementOptions;
+		this.mProtectionSpell = protectionSpell;
+		this.mUseSpecialSkill = useSpecialSkill;
+		this.mSubTasks = subTasks;
+		this.mLogger = logger;
+		this.mController = controller;
+		this.mBrowserSettingsProvider = browserSettingsProvider;
 
-		mApi = null;
-		mInstance = null;
-		mCurrentSubTask = null;
+		this.mApi = null;
+		this.mInstance = null;
+		this.mCurrentSubTask = null;
 	}
 
 	/*
@@ -139,8 +139,8 @@ public final class RoutineTask extends Thread implements ITask {
 	 */
 	@Override
 	public void interrupt() {
-		if (mCurrentSubTask != null) {
-			mCurrentSubTask.interrupt();
+		if (this.mCurrentSubTask != null) {
+			this.mCurrentSubTask.interrupt();
 		}
 		super.interrupt();
 	}
@@ -154,62 +154,63 @@ public final class RoutineTask extends Thread implements ITask {
 	public void run() {
 		try {
 			// Create sparkle API
-			mLogger.logInfo("Starting Sparkle...", Logger.TOP_LEVEL);
-			mApi = new Sparkle(mBrowser);
-			final DesiredCapabilities capabilities = mApi.createCapabilities(mBrowser,
-					mBrowserSettingsProvider.getDriverForBrowser(mBrowser), mBrowserSettingsProvider.getBrowserBinary(),
-					mBrowserSettingsProvider.getUserProfile());
+			this.mLogger.logInfo("Starting Sparkle...", Logger.TOP_LEVEL);
+			this.mApi = new Sparkle(this.mBrowser);
+			final DesiredCapabilities capabilities = this.mApi.createCapabilities(this.mBrowser,
+					this.mBrowserSettingsProvider.getDriverForBrowser(this.mBrowser),
+					this.mBrowserSettingsProvider.getBrowserBinary(), this.mBrowserSettingsProvider.getUserProfile());
 
-			mApi.setCapabilities(capabilities);
-			mLogger.logInfo("Sparkle started.", Logger.FIRST_LEVEL);
+			this.mApi.setCapabilities(capabilities);
+			this.mLogger.logInfo("Sparkle started.", Logger.FIRST_LEVEL);
 
 			// Login and create an instance
-			mLogger.logInfo("Creating instance...", Logger.TOP_LEVEL);
-			if (mUsername == null || mUsername.equals("") || mPassword == null || mPassword.equals("")) {
-				mLogger.logError("Invalid username or password.", Logger.FIRST_LEVEL);
+			this.mLogger.logInfo("Creating instance...", Logger.TOP_LEVEL);
+			if (this.mUsername == null || this.mUsername.equals("") || this.mPassword == null
+					|| this.mPassword.equals("")) {
+				this.mLogger.logError("Invalid username or password.", Logger.FIRST_LEVEL);
 				throw new AbortTaskException();
 			}
-			mInstance = mApi.login(mUsername, mPassword, mWorld);
-			mLogger.logInfo("Instance created.", Logger.FIRST_LEVEL);
+			this.mInstance = this.mApi.login(this.mUsername, this.mPassword, this.mWorld);
+			this.mLogger.logInfo("Instance created.", Logger.FIRST_LEVEL);
 
 			// Ensure protection if desired
-			if (mProtectionSpell.isPresent()) {
-				final String protectionSpellName = mProtectionSpell.get();
-				registerAndStartSubTask(new EnsureProtectionTask(mInstance, protectionSpellName, mLogger));
+			if (this.mProtectionSpell.isPresent()) {
+				final String protectionSpellName = this.mProtectionSpell.get();
+				registerAndStartSubTask(new EnsureProtectionTask(this.mInstance, protectionSpellName, this.mLogger));
 			}
 
 			// Activate the special skill if desired
-			if (mUseSpecialSkill) {
-				registerAndStartSubTask(new ActivateSpecialSkillTask(mInstance, mLogger));
+			if (this.mUseSpecialSkill) {
+				registerAndStartSubTask(new ActivateSpecialSkillTask(this.mInstance, this.mLogger));
 			}
 
 			// Collect baru corn
-			if (mSubTasks.contains(EKivaTask.BARU_CORN)) {
+			if (this.mSubTasks.contains(EKivaTask.BARU_CORN)) {
 				collectResource(new Point(115, 94), "corn storehouse", "Getreide mitnehmen", "baru corn");
 			}
 			// Collect glodo fish
-			if (mSubTasks.contains(EKivaTask.GLODO_FISH)) {
+			if (this.mSubTasks.contains(EKivaTask.GLODO_FISH)) {
 				collectResource(new Point(68, 116), "fish storehouse", "Fische mitnehmen", "glodo fish");
 			}
 			// Collect marsh gas
-			if (mSubTasks.contains(EKivaTask.MARSH_GAS)) {
+			if (this.mSubTasks.contains(EKivaTask.MARSH_GAS)) {
 				collectResource(new Point(76, 104), "gas storehouse", "Sumpfgasflaschen mitnehmen", "marsh gas");
 			}
 			// Collect oil barrel
-			if (mSubTasks.contains(EKivaTask.OIL_BARREL)) {
+			if (this.mSubTasks.contains(EKivaTask.OIL_BARREL)) {
 				collectResource(new Point(103, 117), "oil storehouse", "Ölfässer mitnehmen", "oil barrel");
 			}
 			// Collect gold from the universal foundation
-			if (mSubTasks.contains(EKivaTask.UNIVERSAL_FOUNDATION)) {
+			if (this.mSubTasks.contains(EKivaTask.UNIVERSAL_FOUNDATION)) {
 				collectResource(new Point(87, 112), "universal foundation", "Goldmünzen abholen", "gold");
 			}
 		} catch (final AbortTaskException e) {
 			// Known exception, just terminate
 		} catch (final Exception e) {
-			mLogger.logUnknownError(e);
+			this.mLogger.logUnknownError(e);
 		} finally {
 			terminate();
-			mController.routineFinished();
+			this.mController.routineFinished();
 		}
 	}
 
@@ -232,8 +233,8 @@ public final class RoutineTask extends Thread implements ITask {
 	private void collectResource(final Point destination, final String destinationName, final String resourceAnchorText,
 			final String resourceName) throws AbortTaskException {
 		try {
-			registerAndStartSubTask(new CollectResourceTask(mInstance, destination, destinationName, mMovementOptions,
-					resourceAnchorText, resourceName, mLogger));
+			registerAndStartSubTask(new CollectResourceTask(this.mInstance, destination, destinationName,
+					this.mMovementOptions, resourceAnchorText, resourceName, this.mLogger));
 		} catch (final AbortTaskException e) {
 			// Known error, just abort the current task and continue
 		}
@@ -249,20 +250,20 @@ public final class RoutineTask extends Thread implements ITask {
 	 *            Sub task to register and start
 	 */
 	private void registerAndStartSubTask(final ITask subTask) {
-		mCurrentSubTask = subTask;
-		mCurrentSubTask.start();
+		this.mCurrentSubTask = subTask;
+		this.mCurrentSubTask.start();
 	}
 
 	/**
 	 * Terminates the current task and shuts down the instance and API.
 	 */
 	private void terminate() {
-		if (mApi != null) {
-			if (mInstance != null) {
-				mApi.logout(mInstance, false);
-				mInstance = null;
+		if (this.mApi != null) {
+			if (this.mInstance != null) {
+				this.mApi.logout(this.mInstance, false);
+				this.mInstance = null;
 			}
-			mApi.shutdown(false);
+			this.mApi.shutdown(false);
 		}
 	}
 }

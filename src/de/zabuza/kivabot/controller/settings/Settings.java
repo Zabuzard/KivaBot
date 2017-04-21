@@ -41,8 +41,8 @@ public final class Settings {
 	 *            The logger to use
 	 */
 	public Settings(final Logger logger) {
-		mProperties = new Properties();
-		mLogger = logger;
+		this.mProperties = new Properties();
+		this.mLogger = logger;
 	}
 
 	/**
@@ -53,22 +53,25 @@ public final class Settings {
 	 *            Provider which settings will be affected
 	 */
 	public final void loadSettings(final ISettingsProvider provider) {
-		mLogger.logInfo("Loading settings...", Logger.TOP_LEVEL);
-		try {
+		this.mLogger.logInfo("Loading settings...", Logger.TOP_LEVEL);
+		try (final FileInputStream fis = new FileInputStream(FILEPATH)) {
 			try {
-				mProperties.load(new FileInputStream(FILEPATH));
+				this.mProperties.load(fis);
 			} catch (FileNotFoundException e) {
 				saveSettings(provider);
-				mProperties.load(new FileInputStream(FILEPATH));
+
+				try (final FileInputStream anotherFis = new FileInputStream(FILEPATH)) {
+					this.mProperties.load(anotherFis);
+				}
 			}
 
 			// Fetch and set every saved setting
-			for (Entry<Object, Object> entry : mProperties.entrySet()) {
+			for (Entry<Object, Object> entry : this.mProperties.entrySet()) {
 				provider.setSetting((String) entry.getKey(), (String) entry.getValue());
 			}
-			mLogger.logInfo("Settings loaded.", Logger.FIRST_LEVEL);
+			this.mLogger.logInfo("Settings loaded.", Logger.FIRST_LEVEL);
 		} catch (IOException e) {
-			mLogger.logError("IO-error while loading settings from : " + FILEPATH, Logger.FIRST_LEVEL);
+			this.mLogger.logError("IO-error while loading settings from : " + FILEPATH, Logger.FIRST_LEVEL);
 			e.printStackTrace();
 		}
 	}
@@ -80,30 +83,20 @@ public final class Settings {
 	 *            Provider which settings will be affected
 	 */
 	public final void saveSettings(final ISettingsProvider provider) {
-		mLogger.logInfo("Saving settings...", Logger.TOP_LEVEL);
-		FileOutputStream target = null;
-		try {
-			// Fetch and put every setting
-			for (Entry<String, String> entry : provider.getAllSettings().entrySet()) {
-				mProperties.put(entry.getKey(), entry.getValue());
-			}
+		this.mLogger.logInfo("Saving settings...", Logger.TOP_LEVEL);
 
+		// Fetch and put every setting
+		for (Entry<String, String> entry : provider.getAllSettings().entrySet()) {
+			this.mProperties.put(entry.getKey(), entry.getValue());
+		}
+
+		try (final FileOutputStream target = new FileOutputStream(new File(FILEPATH))) {
 			// Save the settings
-			target = new FileOutputStream(new File(FILEPATH));
-			mProperties.store(target, FILE_COMMENT);
-			mLogger.logInfo("Settings saved.", Logger.FIRST_LEVEL);
+			this.mProperties.store(target, FILE_COMMENT);
+			this.mLogger.logInfo("Settings saved.", Logger.FIRST_LEVEL);
 		} catch (IOException e) {
-			mLogger.logError("IO-error while saving settings to : " + FILEPATH, Logger.FIRST_LEVEL);
+			this.mLogger.logError("IO-error while saving settings to : " + FILEPATH, Logger.FIRST_LEVEL);
 			e.printStackTrace();
-		} finally {
-			if (target != null) {
-				try {
-					target.close();
-				} catch (IOException e) {
-					mLogger.logUnknownError(e);
-					e.printStackTrace();
-				}
-			}
 		}
 	}
 }

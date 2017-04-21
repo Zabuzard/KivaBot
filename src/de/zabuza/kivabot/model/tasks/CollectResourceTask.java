@@ -80,14 +80,14 @@ public class CollectResourceTask implements ITask {
 	public CollectResourceTask(final IFreewarInstance instance, final Point destination, final String destinationName,
 			final Set<EMoveType> movementOptions, final String resourceAnchorText, final String resourceName,
 			final Logger logger) {
-		mInstance = instance;
-		mDestination = destination;
-		mDestinationName = destinationName;
-		mMovementOptions = movementOptions;
-		mResourceAnchorText = resourceAnchorText;
-		mResourceName = resourceName;
-		mLogger = logger;
-		mInterrupted = false;
+		this.mInstance = instance;
+		this.mDestination = destination;
+		this.mDestinationName = destinationName;
+		this.mMovementOptions = movementOptions;
+		this.mResourceAnchorText = resourceAnchorText;
+		this.mResourceName = resourceName;
+		this.mLogger = logger;
+		this.mInterrupted = false;
 	}
 
 	/*
@@ -97,7 +97,7 @@ public class CollectResourceTask implements ITask {
 	 */
 	@Override
 	public void interrupt() {
-		mInterrupted = true;
+		this.mInterrupted = true;
 	}
 
 	/*
@@ -107,7 +107,7 @@ public class CollectResourceTask implements ITask {
 	 */
 	@Override
 	public boolean isInterrupted() {
-		return mInterrupted;
+		return this.mInterrupted;
 	}
 
 	/*
@@ -118,34 +118,34 @@ public class CollectResourceTask implements ITask {
 	@Override
 	public void start() {
 		// Move to the destination
-		mLogger.logInfo("Moving to " + mDestinationName + "...", Logger.TOP_LEVEL);
-		final IMovement movement = mInstance.getMovement();
-		movement.moveTo((int) mDestination.getX(), (int) mDestination.getY(), mMovementOptions);
+		this.mLogger.logInfo("Moving to " + this.mDestinationName + "...", Logger.TOP_LEVEL);
+		final IMovement movement = this.mInstance.getMovement();
+		movement.moveTo((int) this.mDestination.getX(), (int) this.mDestination.getY(), this.mMovementOptions);
 		while (movement.hasMovementTask()) {
 			try {
 				Thread.sleep(MOVEMENT_CHECK_TIMEOUT);
 			} catch (final InterruptedException e) {
 				movement.cancelMovementTask();
 				if (!isInterrupted()) {
-					mLogger.logUnknownError(e);
+					this.mLogger.logUnknownError(e);
 				}
 				throw new AbortTaskException();
 			}
 		}
 		if (!movement.wasTaskSuccessful()) {
-			mLogger.logError("Movement was aborted.", Logger.FIRST_LEVEL);
+			this.mLogger.logError("Movement was aborted.", Logger.FIRST_LEVEL);
 			throw new AbortTaskException();
 		}
-		mLogger.logInfo("Arrival at " + mDestinationName + ".", Logger.FIRST_LEVEL);
+		this.mLogger.logInfo("Arrival at " + this.mDestinationName + ".", Logger.FIRST_LEVEL);
 
 		// Collect the resource
-		mLogger.logInfo("Collecting " + mResourceName + "...", Logger.TOP_LEVEL);
-		final boolean anchorClicked = mInstance.clickAnchorByContent(EFrame.MAIN, mResourceAnchorText);
+		this.mLogger.logInfo("Collecting " + this.mResourceName + "...", Logger.TOP_LEVEL);
+		final boolean anchorClicked = this.mInstance.clickAnchorByContent(EFrame.MAIN, this.mResourceAnchorText);
 		if (!anchorClicked) {
-			mLogger.logError("Collection anchor not found.", Logger.FIRST_LEVEL);
+			this.mLogger.logError("Collection anchor not found.", Logger.FIRST_LEVEL);
 			throw new AbortTaskException();
 		}
-		mLogger.logInfo("Collected " + mResourceName + ".", Logger.FIRST_LEVEL);
+		this.mLogger.logInfo("Collected " + this.mResourceName + ".", Logger.FIRST_LEVEL);
 	}
 
 }

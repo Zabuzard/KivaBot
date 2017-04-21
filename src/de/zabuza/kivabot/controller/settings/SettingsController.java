@@ -123,13 +123,13 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 *            The logger to use
 	 */
 	public SettingsController(final JFrame owner, final MainFrameView view, final Logger logger) {
-		mView = view;
-		mLogger = logger;
-		mOwner = owner;
+		this.mView = view;
+		this.mLogger = logger;
+		this.mOwner = owner;
 
-		mSettingsStore = new HashMap<>();
-		mSettings = new Settings(mLogger);
-		mSettingsDialog = null;
+		this.mSettingsStore = new HashMap<>();
+		this.mSettings = new Settings(this.mLogger);
+		this.mSettingsDialog = null;
 	}
 
 	/**
@@ -137,11 +137,11 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 * free the parent window of the dialog.
 	 */
 	public void closingSettingsDialog() {
-		mView.setAllInputEnabled(true);
-		mView.setStartButtonEnabled(true);
-		mView.setStopButtonEnabled(false);
-		mView.setSettingsButtonEnabled(true);
-		mSettingsDialog = null;
+		this.mView.setAllInputEnabled(true);
+		this.mView.setStartButtonEnabled(true);
+		this.mView.setStopButtonEnabled(false);
+		this.mView.setSettingsButtonEnabled(true);
+		this.mSettingsDialog = null;
 	}
 
 	/**
@@ -150,10 +150,10 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 */
 	public void executeSaveAction() {
 		// Save dialog settings if dialog is opened
-		if (mSettingsDialog != null) {
+		if (this.mSettingsDialog != null) {
 			// Driver settings
 			for (final EBrowser browser : EBrowser.values()) {
-				final JTextField field = mSettingsDialog.getBrowserDriverField(browser);
+				final JTextField field = this.mSettingsDialog.getBrowserDriverField(browser);
 				final String value = field.getText();
 				if (!value.equals(UNKNOWN_KEY_VALUE)) {
 					final String key = KEY_IDENTIFIER_DRIVER + KEY_INFO_SEPARATOR + browser;
@@ -162,7 +162,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 			}
 
 			// Binary setting
-			final JTextField binaryField = mSettingsDialog.getBinaryField();
+			final JTextField binaryField = this.mSettingsDialog.getBinaryField();
 			final String binaryValue = binaryField.getText();
 			if (!binaryValue.equals(UNKNOWN_KEY_VALUE)) {
 				final String key = KEY_IDENTIFIER_BINARY;
@@ -170,7 +170,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 			}
 
 			// User profile setting
-			final JTextField userProfileField = mSettingsDialog.getUserProfileField();
+			final JTextField userProfileField = this.mSettingsDialog.getUserProfileField();
 			final String userProfileValue = userProfileField.getText();
 			if (!userProfileValue.equals(UNKNOWN_KEY_VALUE)) {
 				final String key = KEY_IDENTIFIER_USER_PROFILE;
@@ -178,7 +178,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 			}
 
 			// Protection spell setting
-			final JTextField protectionSpellField = mSettingsDialog.getProtectionSpellField();
+			final JTextField protectionSpellField = this.mSettingsDialog.getProtectionSpellField();
 			final String protectionSpellValue = protectionSpellField.getText();
 			if (!protectionSpellValue.equals(UNKNOWN_KEY_VALUE)) {
 				final String key = KEY_IDENTIFIER_PROTECTION_SPELL;
@@ -188,35 +188,35 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 
 		// Save the current content of the main view
 		// Username
-		final String username = mView.getUsername();
+		final String username = this.mView.getUsername();
 		if (!username.equals(UNKNOWN_KEY_VALUE)) {
 			final String key = KEY_IDENTIFIER_USERNAME;
 			setSetting(key, username);
 		}
 
 		// Password
-		final String password = mView.getPassword();
+		final String password = this.mView.getPassword();
 		if (!password.equals(UNKNOWN_KEY_VALUE)) {
 			final String key = KEY_IDENTIFIER_PASSWORD;
 			setSetting(key, password);
 		}
 
 		// World
-		final EWorld world = mView.getWorld();
+		final EWorld world = this.mView.getWorld();
 		if (world != null) {
 			final String key = KEY_IDENTIFIER_WORLD;
 			setSetting(key, world.toString());
 		}
 
 		// Selected browser
-		final EBrowser browser = mView.getBrowser();
+		final EBrowser browser = this.mView.getBrowser();
 		if (browser != null) {
 			final String key = KEY_IDENTIFIER_BROWSER;
 			setSetting(key, browser.toString());
 		}
 
 		// Movement options
-		final Set<EMoveType> selectedOptions = mView.getMovementOptions();
+		final Set<EMoveType> selectedOptions = this.mView.getMovementOptions();
 		for (final EMoveType moveType : EMoveType.values()) {
 			final boolean value = selectedOptions.contains(moveType);
 			final String key = KEY_IDENTIFIER_MOVEMENT_OPTION + KEY_INFO_SEPARATOR + moveType;
@@ -224,7 +224,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 		}
 
 		// Tasks
-		final Set<EKivaTask> selectedTasks = mView.getKivaTasks();
+		final Set<EKivaTask> selectedTasks = this.mView.getKivaTasks();
 		for (final EKivaTask task : EKivaTask.values()) {
 			final boolean value = selectedTasks.contains(task);
 			final String key = KEY_IDENTIFIER_TASK + KEY_INFO_SEPARATOR + task;
@@ -232,21 +232,21 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 		}
 
 		// Use protection spell setting
-		final boolean useProtectionSpell = mView.isUseProtectionSpellChecked();
+		final boolean useProtectionSpell = this.mView.isUseProtectionSpellChecked();
 		String key = KEY_IDENTIFIER_USE_PROTECTION_SPELL;
 		setSetting(key, Boolean.toString(useProtectionSpell));
 
 		// Use special skill setting
-		final boolean useSpecialSkill = mView.isUseSpecialSkillChecked();
+		final boolean useSpecialSkill = this.mView.isUseSpecialSkillChecked();
 		key = KEY_IDENTIFIER_USE_SPECIAL_SKILL;
 		setSetting(key, Boolean.toString(useSpecialSkill));
 
 		// Save settings
-		mSettings.saveSettings(this);
+		this.mSettings.saveSettings(this);
 
 		// Close the settings dialog, if opened
-		if (mSettingsDialog != null) {
-			mSettingsDialog.dispatchEvent(new WindowEvent(mSettingsDialog, WindowEvent.WINDOW_CLOSING));
+		if (this.mSettingsDialog != null) {
+			this.mSettingsDialog.dispatchEvent(new WindowEvent(this.mSettingsDialog, WindowEvent.WINDOW_CLOSING));
 		}
 	}
 
@@ -256,18 +256,18 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 */
 	public void executeSettingsAction() {
 		// Deactivate all actions until the settings dialog has closed
-		mView.setAllInputEnabled(false);
-		mView.setStartButtonEnabled(false);
-		mView.setStopButtonEnabled(false);
-		mView.setSettingsButtonEnabled(false);
+		this.mView.setAllInputEnabled(false);
+		this.mView.setStartButtonEnabled(false);
+		this.mView.setStopButtonEnabled(false);
+		this.mView.setSettingsButtonEnabled(false);
 
 		// Open the dialog
-		mSettingsDialog = new SettingsDialog(mOwner);
+		this.mSettingsDialog = new SettingsDialog(this.mOwner);
 		linkDialogListener();
 
 		// Load settings to the store
 		passSettingsToSettingsDialogView();
-		mSettingsDialog.setVisible(true);
+		this.mSettingsDialog.setVisible(true);
 	}
 
 	/*
@@ -278,7 +278,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 */
 	@Override
 	public Map<String, String> getAllSettings() {
-		return mSettingsStore;
+		return this.mSettingsStore;
 	}
 
 	/*
@@ -291,9 +291,8 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 		String binary = getSetting(KEY_IDENTIFIER_BINARY);
 		if (binary.equals(UNKNOWN_KEY_VALUE)) {
 			return null;
-		} else {
-			return binary;
 		}
+		return binary;
 	}
 
 	/*
@@ -309,9 +308,8 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 		String driver = getSetting(key);
 		if (driver.equals(UNKNOWN_KEY_VALUE)) {
 			return null;
-		} else {
-			return driver;
 		}
+		return driver;
 	}
 
 	/**
@@ -324,9 +322,8 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 		String protectionSpell = getSetting(KEY_IDENTIFIER_PROTECTION_SPELL);
 		if (protectionSpell.equals(UNKNOWN_KEY_VALUE)) {
 			return null;
-		} else {
-			return protectionSpell;
 		}
+		return protectionSpell;
 	}
 
 	/*
@@ -338,7 +335,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 */
 	@Override
 	public String getSetting(final String key) {
-		String value = mSettingsStore.get(key);
+		String value = this.mSettingsStore.get(key);
 		if (value == null) {
 			value = UNKNOWN_KEY_VALUE;
 		}
@@ -356,9 +353,8 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 		String userProfile = getSetting(KEY_IDENTIFIER_USER_PROFILE);
 		if (userProfile.equals(UNKNOWN_KEY_VALUE)) {
 			return null;
-		} else {
-			return userProfile;
 		}
+		return userProfile;
 	}
 
 	/**
@@ -366,45 +362,45 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 */
 	public void initialize() {
 		linkListener();
-		mSettings.loadSettings(this);
+		this.mSettings.loadSettings(this);
 	}
 
 	/**
 	 * Passes the settings of the store to the main view for display.
 	 */
 	public void passSettingsToMainView() {
-		for (final Entry<String, String> entry : mSettingsStore.entrySet()) {
+		for (final Entry<String, String> entry : this.mSettingsStore.entrySet()) {
 			final String[] keySplit = entry.getKey().split(KEY_INFO_SEPARATOR);
 			final String keyIdentifier = keySplit[0];
 
 			if (keyIdentifier.equals(KEY_IDENTIFIER_USERNAME)) {
 				// Username
-				mView.setUsername(entry.getValue());
+				this.mView.setUsername(entry.getValue());
 			} else if (keyIdentifier.equals(KEY_IDENTIFIER_PASSWORD)) {
 				// Password
-				mView.setPassword(entry.getValue());
+				this.mView.setPassword(entry.getValue());
 			} else if (keyIdentifier.equals(KEY_IDENTIFIER_WORLD)) {
 				// World
-				mView.setWorld(EWorld.valueOf(entry.getValue()));
+				this.mView.setWorld(EWorld.valueOf(entry.getValue()));
 			} else if (keyIdentifier.equals(KEY_IDENTIFIER_BROWSER)) {
 				// Browser
-				mView.setBrowser(EBrowser.valueOf(entry.getValue()));
+				this.mView.setBrowser(EBrowser.valueOf(entry.getValue()));
 			} else if (keyIdentifier.equals(KEY_IDENTIFIER_MOVEMENT_OPTION)) {
 				// Movement option
 				final EMoveType moveType = EMoveType.valueOf(keySplit[1]);
-				final boolean isSelected = Boolean.valueOf(entry.getValue());
-				mView.setMovementOption(moveType, isSelected);
+				final boolean isSelected = Boolean.valueOf(entry.getValue()).booleanValue();
+				this.mView.setMovementOption(moveType, isSelected);
 			} else if (keyIdentifier.equals(KEY_IDENTIFIER_TASK)) {
 				// Task
 				final EKivaTask task = EKivaTask.valueOf(keySplit[1]);
-				final boolean isSelected = Boolean.valueOf(entry.getValue());
-				mView.setKivaTask(task, isSelected);
+				final boolean isSelected = Boolean.valueOf(entry.getValue()).booleanValue();
+				this.mView.setKivaTask(task, isSelected);
 			} else if (keyIdentifier.equals(KEY_IDENTIFIER_USE_PROTECTION_SPELL)) {
 				// Use protection spell setting
-				mView.setUseProtectionSpell(Boolean.valueOf(entry.getValue()));
+				this.mView.setUseProtectionSpell(Boolean.valueOf(entry.getValue()).booleanValue());
 			} else if (keyIdentifier.equals(KEY_IDENTIFIER_USE_SPECIAL_SKILL)) {
 				// Use special skill setting
-				mView.setUseSpecialSkill(Boolean.valueOf(entry.getValue()));
+				this.mView.setUseSpecialSkill(Boolean.valueOf(entry.getValue()).booleanValue());
 			}
 		}
 	}
@@ -418,7 +414,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 */
 	@Override
 	public void setSetting(final String key, final String value) {
-		mSettingsStore.put(key, value);
+		this.mSettingsStore.put(key, value);
 	}
 
 	/**
@@ -426,61 +422,61 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 */
 	private void linkDialogListener() {
 		// Window listener
-		mSettingsDialog.addWindowListener(new ClosingCallbackWindowListener(this));
+		this.mSettingsDialog.addWindowListener(new ClosingCallbackWindowListener(this));
 
 		// Browser field listener
 		for (EBrowser browser : EBrowser.values()) {
-			ActionListener listener = new FileChooseSetActionListener(mSettingsDialog,
-					mSettingsDialog.getBrowserDriverField(browser), false);
-			mSettingsDialog.addListenerToBrowserDriverSelectionAction(browser, listener);
+			ActionListener listener = new FileChooseSetActionListener(this.mSettingsDialog,
+					this.mSettingsDialog.getBrowserDriverField(browser), false);
+			this.mSettingsDialog.addListenerToBrowserDriverSelectionAction(browser, listener);
 		}
 
 		// Binary listener
-		ActionListener binaryListener = new FileChooseSetActionListener(mSettingsDialog,
-				mSettingsDialog.getBinaryField(), false);
-		mSettingsDialog.addListenerToBinarySelectionAction(binaryListener);
+		ActionListener binaryListener = new FileChooseSetActionListener(this.mSettingsDialog,
+				this.mSettingsDialog.getBinaryField(), false);
+		this.mSettingsDialog.addListenerToBinarySelectionAction(binaryListener);
 
 		// User profile listener
-		ActionListener userProfileListener = new FileChooseSetActionListener(mSettingsDialog,
-				mSettingsDialog.getUserProfileField(), true);
-		mSettingsDialog.addListenerToUserProfileSelectionAction(userProfileListener);
+		ActionListener userProfileListener = new FileChooseSetActionListener(this.mSettingsDialog,
+				this.mSettingsDialog.getUserProfileField(), true);
+		this.mSettingsDialog.addListenerToUserProfileSelectionAction(userProfileListener);
 
 		// Save and cancel listener
-		mSettingsDialog.addListenerToSaveAction(new SaveActionListener(this));
-		mSettingsDialog.addListenerToCancelAction(new CloseAtCancelActionListener(mSettingsDialog));
+		this.mSettingsDialog.addListenerToSaveAction(new SaveActionListener(this));
+		this.mSettingsDialog.addListenerToCancelAction(new CloseAtCancelActionListener(this.mSettingsDialog));
 	}
 
 	/**
 	 * Links the listener to the view.
 	 */
 	private void linkListener() {
-		mView.addListenerToSettingsAction(new SettingsActionListener(this));
+		this.mView.addListenerToSettingsAction(new SettingsActionListener(this));
 	}
 
 	/**
 	 * Passes the settings of the store to the settings dialog view for display.
 	 */
 	private void passSettingsToSettingsDialogView() {
-		for (final Entry<String, String> entry : mSettingsStore.entrySet()) {
+		for (final Entry<String, String> entry : this.mSettingsStore.entrySet()) {
 			final String[] keySplit = entry.getKey().split(KEY_INFO_SEPARATOR);
 			final String keyIdentifier = keySplit[0];
 
 			if (keyIdentifier.equals(KEY_IDENTIFIER_DRIVER)) {
 				// Driver settings
 				final EBrowser browser = EBrowser.valueOf(keySplit[1]);
-				final JTextField field = mSettingsDialog.getBrowserDriverField(browser);
+				final JTextField field = this.mSettingsDialog.getBrowserDriverField(browser);
 				field.setText(entry.getValue());
 			} else if (keyIdentifier.equals(KEY_IDENTIFIER_BINARY)) {
 				// Binary settings
-				final JTextField field = mSettingsDialog.getBinaryField();
+				final JTextField field = this.mSettingsDialog.getBinaryField();
 				field.setText(entry.getValue());
 			} else if (keyIdentifier.equals(KEY_IDENTIFIER_USER_PROFILE)) {
 				// User profile settings
-				final JTextField field = mSettingsDialog.getUserProfileField();
+				final JTextField field = this.mSettingsDialog.getUserProfileField();
 				field.setText(entry.getValue());
 			} else if (keyIdentifier.equals(KEY_IDENTIFIER_PROTECTION_SPELL)) {
 				// Protection spell settings
-				final JTextField field = mSettingsDialog.getProtectionSpellField();
+				final JTextField field = this.mSettingsDialog.getProtectionSpellField();
 				field.setText(entry.getValue());
 			}
 		}

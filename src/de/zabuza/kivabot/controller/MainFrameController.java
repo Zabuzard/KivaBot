@@ -52,10 +52,10 @@ public final class MainFrameController {
 	 *            logger of the main frame
 	 */
 	public MainFrameController(final JFrame owner, final MainFrameView view, final Logger logger) {
-		mView = view;
-		mLogger = logger;
-		mSettingsController = new SettingsController(owner, view, logger);
-		mCurrentRoutine = null;
+		this.mView = view;
+		this.mLogger = logger;
+		this.mSettingsController = new SettingsController(owner, view, logger);
+		this.mCurrentRoutine = null;
 	}
 
 	/**
@@ -63,28 +63,28 @@ public final class MainFrameController {
 	 */
 	public void initialize() {
 		linkListener();
-		mSettingsController.initialize();
+		this.mSettingsController.initialize();
 		// Pass the saved settings to the view
-		mSettingsController.passSettingsToMainView();
+		this.mSettingsController.passSettingsToMainView();
 	}
 
 	/**
 	 * Call this method when the routine has finished.
 	 */
 	public void routineFinished() {
-		mCurrentRoutine = null;
-		mLogger.logInfo("Routine finished.", Logger.TOP_LEVEL);
-		mView.setAllInputEnabled(true);
-		mView.setStartButtonEnabled(true);
-		mView.setStopButtonEnabled(false);
-		mView.setSettingsButtonEnabled(true);
+		this.mCurrentRoutine = null;
+		this.mLogger.logInfo("Routine finished.", Logger.TOP_LEVEL);
+		this.mView.setAllInputEnabled(true);
+		this.mView.setStartButtonEnabled(true);
+		this.mView.setStopButtonEnabled(false);
+		this.mView.setSettingsButtonEnabled(true);
 	}
 
 	/**
 	 * Starts the controller.
 	 */
 	public void start() {
-
+		// Nothing to do yet
 	}
 
 	/**
@@ -92,39 +92,40 @@ public final class MainFrameController {
 	 */
 	public void startRoutine() {
 		// First save the current content of the view
-		mSettingsController.executeSaveAction();
+		this.mSettingsController.executeSaveAction();
 
 		// Start the routine
-		mLogger.logInfo("Routine started.", Logger.TOP_LEVEL);
-		mView.setAllInputEnabled(false);
-		mView.setStartButtonEnabled(false);
-		mView.setStopButtonEnabled(true);
-		mView.setSettingsButtonEnabled(false);
+		this.mLogger.logInfo("Routine started.", Logger.TOP_LEVEL);
+		this.mView.setAllInputEnabled(false);
+		this.mView.setStartButtonEnabled(false);
+		this.mView.setStopButtonEnabled(true);
+		this.mView.setSettingsButtonEnabled(false);
 
 		final Optional<String> protectionSpell;
-		if (mView.isUseProtectionSpellChecked()) {
-			protectionSpell = Optional.of(mSettingsController.getProtectionSpell());
+		if (this.mView.isUseProtectionSpellChecked()) {
+			protectionSpell = Optional.of(this.mSettingsController.getProtectionSpell());
 		} else {
 			protectionSpell = Optional.empty();
 		}
 
-		mCurrentRoutine = new RoutineTask(mView.getUsername(), mView.getPassword(), mView.getWorld(),
-				mView.getBrowser(), mView.getMovementOptions(), protectionSpell, mView.isUseSpecialSkillChecked(),
-				mView.getKivaTasks(), mLogger, this, mSettingsController);
-		mCurrentRoutine.start();
+		this.mCurrentRoutine = new RoutineTask(this.mView.getUsername(), this.mView.getPassword(),
+				this.mView.getWorld(), this.mView.getBrowser(), this.mView.getMovementOptions(), protectionSpell,
+				this.mView.isUseSpecialSkillChecked(), this.mView.getKivaTasks(), this.mLogger, this,
+				this.mSettingsController);
+		this.mCurrentRoutine.start();
 	}
 
 	/**
 	 * Stops the routine.
 	 */
 	public void stopRoutine() {
-		mLogger.logInfo("Routine stopped.", Logger.TOP_LEVEL);
-		if (mCurrentRoutine != null) {
-			mCurrentRoutine.interrupt();
+		this.mLogger.logInfo("Routine stopped.", Logger.TOP_LEVEL);
+		if (this.mCurrentRoutine != null) {
+			this.mCurrentRoutine.interrupt();
 			try {
-				mCurrentRoutine.join(INTERRUPT_WAIT);
+				this.mCurrentRoutine.join(INTERRUPT_WAIT);
 			} catch (final InterruptedException e) {
-				mLogger.logUnknownError(e);
+				this.mLogger.logUnknownError(e);
 			}
 		}
 	}
@@ -133,8 +134,8 @@ public final class MainFrameController {
 	 * Links the listener to the view.
 	 */
 	private void linkListener() {
-		mView.addListenerToStartAction(new StartActionListener(this));
-		mView.addListenerToStopAction(new StopActionListener(this));
-		mView.addWindowListener(new StopAtWindowCloseListener(this));
+		this.mView.addListenerToStartAction(new StartActionListener(this));
+		this.mView.addListenerToStopAction(new StopActionListener(this));
+		this.mView.addWindowListener(new StopAtWindowCloseListener(this));
 	}
 }

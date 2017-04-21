@@ -32,6 +32,21 @@ public final class Logger {
 	private static final String PROMPT = ">";
 
 	/**
+	 * Creates a logging level indent.
+	 * 
+	 * @param level
+	 *            Logging level of the indent.
+	 * @return The indent for the logging level
+	 */
+	private static String createLevelIndent(final int level) {
+		final StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < level; i++) {
+			builder.append(LOG_LEVEL_INDENT);
+		}
+		return builder.toString();
+	}
+
+	/**
 	 * View of the main frame.
 	 */
 	private final MainFrameView mView;
@@ -43,7 +58,7 @@ public final class Logger {
 	 *            view of the main frame
 	 */
 	public Logger(final MainFrameView view) {
-		mView = view;
+		this.mView = view;
 	}
 
 	/**
@@ -55,8 +70,8 @@ public final class Logger {
 	 *            The logging level
 	 */
 	public void logError(final String message, final int level) {
-		if (mView != null) {
-			mView.logError(createLevelIndent(level) + PROMPT + message);
+		if (this.mView != null) {
+			this.mView.logError(createLevelIndent(level) + PROMPT + message);
 		}
 	}
 
@@ -69,8 +84,8 @@ public final class Logger {
 	 *            The logging level
 	 */
 	public void logInfo(final String message, final int level) {
-		if (mView != null) {
-			mView.log(createLevelIndent(level) + PROMPT + message);
+		if (this.mView != null) {
+			this.mView.log(createLevelIndent(level) + PROMPT + message);
 		}
 	}
 
@@ -81,27 +96,12 @@ public final class Logger {
 	 *            The error to log
 	 */
 	public void logUnknownError(final Exception e) {
-		if (mView != null) {
-			mView.logError(PROMPT + "An unknown error occurred:");
+		if (this.mView != null) {
+			this.mView.logError(PROMPT + "An unknown error occurred:");
 			if (e.getMessage() != null) {
-				mView.logError(e.getMessage());
+				this.mView.logError(e.getMessage());
 				e.printStackTrace();
 			}
 		}
-	}
-
-	/**
-	 * Creates a logging level indent.
-	 * 
-	 * @param level
-	 *            Logging level of the indent.
-	 * @return The indent for the logging level
-	 */
-	private String createLevelIndent(final int level) {
-		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < level; i++) {
-			builder.append(LOG_LEVEL_INDENT);
-		}
-		return builder.toString();
 	}
 }

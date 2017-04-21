@@ -26,7 +26,7 @@ public final class SaveActionListener implements ActionListener {
 	 *            The controller of the settings
 	 */
 	public SaveActionListener(final SettingsController controller) {
-		mController = controller;
+		this.mController = controller;
 	}
 
 	/*
@@ -37,6 +37,6 @@ public final class SaveActionListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		mController.executeSaveAction();
+		this.mController.executeSaveAction();
 	}
 }

@@ -25,7 +25,7 @@ public final class ClosingCallbackWindowListener implements WindowListener {
 	 *            Controller of the settings
 	 */
 	public ClosingCallbackWindowListener(final SettingsController controller) {
-		mController = controller;
+		this.mController = controller;
 	}
 
 	/*
@@ -36,7 +36,7 @@ public final class ClosingCallbackWindowListener implements WindowListener {
 	 */
 	@Override
 	public void windowActivated(final WindowEvent event) {
-
+		// Nothing to do yet
 	}
 
 	/*
@@ -47,7 +47,7 @@ public final class ClosingCallbackWindowListener implements WindowListener {
 	 */
 	@Override
 	public void windowClosed(final WindowEvent event) {
-
+		// Nothing to do yet
 	}
 
 	/*
@@ -58,7 +58,7 @@ public final class ClosingCallbackWindowListener implements WindowListener {
 	 */
 	@Override
 	public void windowClosing(final WindowEvent event) {
-		mController.closingSettingsDialog();
+		this.mController.closingSettingsDialog();
 	}
 
 	/*
@@ -69,7 +69,7 @@ public final class ClosingCallbackWindowListener implements WindowListener {
 	 */
 	@Override
 	public void windowDeactivated(final WindowEvent event) {
-
+		// Nothing to do yet
 	}
 
 	/*
@@ -80,7 +80,7 @@ public final class ClosingCallbackWindowListener implements WindowListener {
 	 */
 	@Override
 	public void windowDeiconified(final WindowEvent event) {
-
+		// Nothing to do yet
 	}
 
 	/*
@@ -91,7 +91,7 @@ public final class ClosingCallbackWindowListener implements WindowListener {
 	 */
 	@Override
 	public void windowIconified(final WindowEvent event) {
-
+		// Nothing to do yet
 	}
 
 	/*
@@ -102,7 +102,7 @@ public final class ClosingCallbackWindowListener implements WindowListener {
 	 */
 	@Override
 	public void windowOpened(final WindowEvent event) {
-
+		// Nothing to do yet
 	}
 
 }

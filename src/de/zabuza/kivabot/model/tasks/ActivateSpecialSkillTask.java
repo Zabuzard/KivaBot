@@ -34,9 +34,9 @@ public class ActivateSpecialSkillTask implements ITask {
 	 *            The logger to use
 	 */
 	public ActivateSpecialSkillTask(final IFreewarInstance instance, final Logger logger) {
-		mInstance = instance;
-		mLogger = logger;
-		mInterrupted = false;
+		this.mInstance = instance;
+		this.mLogger = logger;
+		this.mInterrupted = false;
 	}
 
 	/*
@@ -46,7 +46,7 @@ public class ActivateSpecialSkillTask implements ITask {
 	 */
 	@Override
 	public void interrupt() {
-		mInterrupted = true;
+		this.mInterrupted = true;
 	}
 
 	/*
@@ -56,7 +56,7 @@ public class ActivateSpecialSkillTask implements ITask {
 	 */
 	@Override
 	public boolean isInterrupted() {
-		return mInterrupted;
+		return this.mInterrupted;
 	}
 
 	/*
@@ -67,12 +67,12 @@ public class ActivateSpecialSkillTask implements ITask {
 	@Override
 	public void start() {
 		// Activate the special skill
-		mLogger.logInfo("Activating special skill...", Logger.TOP_LEVEL);
-		final IPlayer player = mInstance.getPlayer();
+		this.mLogger.logInfo("Activating special skill...", Logger.TOP_LEVEL);
+		final IPlayer player = this.mInstance.getPlayer();
 		if (player.activateSpecialSkill()) {
-			mLogger.logInfo("Activated special skill.", Logger.FIRST_LEVEL);
+			this.mLogger.logInfo("Activated special skill.", Logger.FIRST_LEVEL);
 		} else {
-			mLogger.logError("Failed to activate special skill.", Logger.FIRST_LEVEL);
+			this.mLogger.logError("Failed to activate special skill.", Logger.FIRST_LEVEL);
 			throw new AbortTaskException();
 		}
 	}

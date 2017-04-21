@@ -24,7 +24,7 @@ public class StopActionListener implements ActionListener {
 	 *            Controller of the main frame
 	 */
 	public StopActionListener(final MainFrameController controller) {
-		mController = controller;
+		this.mController = controller;
 	}
 
 	/*
@@ -35,6 +35,6 @@ public class StopActionListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		mController.stopRoutine();
+		this.mController.stopRoutine();
 	}
 }

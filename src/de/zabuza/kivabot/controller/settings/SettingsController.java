@@ -288,7 +288,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 */
 	@Override
 	public String getBrowserBinary() {
-		String binary = getSetting(KEY_IDENTIFIER_BINARY);
+		final String binary = getSetting(KEY_IDENTIFIER_BINARY);
 		if (binary.equals(UNKNOWN_KEY_VALUE)) {
 			return null;
 		}
@@ -304,8 +304,8 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 */
 	@Override
 	public String getDriverForBrowser(final EBrowser browser) {
-		String key = KEY_IDENTIFIER_DRIVER + KEY_INFO_SEPARATOR + browser;
-		String driver = getSetting(key);
+		final String key = KEY_IDENTIFIER_DRIVER + KEY_INFO_SEPARATOR + browser;
+		final String driver = getSetting(key);
 		if (driver.equals(UNKNOWN_KEY_VALUE)) {
 			return null;
 		}
@@ -319,7 +319,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 *         set
 	 */
 	public String getProtectionSpell() {
-		String protectionSpell = getSetting(KEY_IDENTIFIER_PROTECTION_SPELL);
+		final String protectionSpell = getSetting(KEY_IDENTIFIER_PROTECTION_SPELL);
 		if (protectionSpell.equals(UNKNOWN_KEY_VALUE)) {
 			return null;
 		}
@@ -350,7 +350,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 */
 	@Override
 	public String getUserProfile() {
-		String userProfile = getSetting(KEY_IDENTIFIER_USER_PROFILE);
+		final String userProfile = getSetting(KEY_IDENTIFIER_USER_PROFILE);
 		if (userProfile.equals(UNKNOWN_KEY_VALUE)) {
 			return null;
 		}
@@ -425,19 +425,19 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 		this.mSettingsDialog.addWindowListener(new ClosingCallbackWindowListener(this));
 
 		// Browser field listener
-		for (EBrowser browser : EBrowser.values()) {
-			ActionListener listener = new FileChooseSetActionListener(this.mSettingsDialog,
+		for (final EBrowser browser : EBrowser.values()) {
+			final ActionListener listener = new FileChooseSetActionListener(this.mSettingsDialog,
 					this.mSettingsDialog.getBrowserDriverField(browser), false);
 			this.mSettingsDialog.addListenerToBrowserDriverSelectionAction(browser, listener);
 		}
 
 		// Binary listener
-		ActionListener binaryListener = new FileChooseSetActionListener(this.mSettingsDialog,
+		final ActionListener binaryListener = new FileChooseSetActionListener(this.mSettingsDialog,
 				this.mSettingsDialog.getBinaryField(), false);
 		this.mSettingsDialog.addListenerToBinarySelectionAction(binaryListener);
 
 		// User profile listener
-		ActionListener userProfileListener = new FileChooseSetActionListener(this.mSettingsDialog,
+		final ActionListener userProfileListener = new FileChooseSetActionListener(this.mSettingsDialog,
 				this.mSettingsDialog.getUserProfileField(), true);
 		this.mSettingsDialog.addListenerToUserProfileSelectionAction(userProfileListener);
 

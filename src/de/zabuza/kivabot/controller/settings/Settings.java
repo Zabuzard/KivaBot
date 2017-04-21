@@ -57,7 +57,7 @@ public final class Settings {
 		try (final FileInputStream fis = new FileInputStream(FILEPATH)) {
 			try {
 				this.mProperties.load(fis);
-			} catch (FileNotFoundException e) {
+			} catch (final FileNotFoundException e) {
 				saveSettings(provider);
 
 				try (final FileInputStream anotherFis = new FileInputStream(FILEPATH)) {
@@ -66,11 +66,11 @@ public final class Settings {
 			}
 
 			// Fetch and set every saved setting
-			for (Entry<Object, Object> entry : this.mProperties.entrySet()) {
+			for (final Entry<Object, Object> entry : this.mProperties.entrySet()) {
 				provider.setSetting((String) entry.getKey(), (String) entry.getValue());
 			}
 			this.mLogger.logInfo("Settings loaded.", Logger.FIRST_LEVEL);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			this.mLogger.logError("IO-error while loading settings from : " + FILEPATH, Logger.FIRST_LEVEL);
 			e.printStackTrace();
 		}
@@ -86,7 +86,7 @@ public final class Settings {
 		this.mLogger.logInfo("Saving settings...", Logger.TOP_LEVEL);
 
 		// Fetch and put every setting
-		for (Entry<String, String> entry : provider.getAllSettings().entrySet()) {
+		for (final Entry<String, String> entry : provider.getAllSettings().entrySet()) {
 			this.mProperties.put(entry.getKey(), entry.getValue());
 		}
 
@@ -94,7 +94,7 @@ public final class Settings {
 			// Save the settings
 			this.mProperties.store(target, FILE_COMMENT);
 			this.mLogger.logInfo("Settings saved.", Logger.FIRST_LEVEL);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			this.mLogger.logError("IO-error while saving settings to : " + FILEPATH, Logger.FIRST_LEVEL);
 			e.printStackTrace();
 		}

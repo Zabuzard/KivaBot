@@ -77,7 +77,7 @@ public final class FileChooseSetActionListener implements ActionListener {
 		String filePath = null;
 
 		// Open file chooser dialog
-		int option = this.mFileChooser.showOpenDialog(this.mParent);
+		final int option = this.mFileChooser.showOpenDialog(this.mParent);
 		if (option == JFileChooser.APPROVE_OPTION) {
 			filePath = this.mFileChooser.getSelectedFile().getAbsolutePath();
 		} else if (option == JFileChooser.CANCEL_OPTION) {

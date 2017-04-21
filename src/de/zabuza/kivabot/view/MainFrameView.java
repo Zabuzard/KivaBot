@@ -298,7 +298,7 @@ public final class MainFrameView {
 	 *            Whether the fields should be enabled or disabled
 	 */
 	public void setAllInputEnabled(final boolean enabled) {
-		for (JComponent element : this.mInputElements) {
+		for (final JComponent element : this.mInputElements) {
 			element.setEnabled(enabled);
 		}
 	}
@@ -434,13 +434,13 @@ public final class MainFrameView {
 	 *            Color of the message
 	 */
 	private void appendToLog(final String message, final Color color) {
-		StyleContext sc = StyleContext.getDefaultStyleContext();
+		final StyleContext sc = StyleContext.getDefaultStyleContext();
 		AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, color);
 
 		aset = sc.addAttribute(aset, StyleConstants.FontFamily, DEFAULT_FONT);
 		aset = sc.addAttribute(aset, StyleConstants.Alignment, Integer.valueOf(StyleConstants.ALIGN_JUSTIFIED));
 
-		int len = this.mLogArea.getDocument().getLength();
+		final int len = this.mLogArea.getDocument().getLength();
 		this.mLogArea.setCaretPosition(len);
 		this.mLogArea.setCharacterAttributes(aset, false);
 		this.mLogArea.setEditable(true);

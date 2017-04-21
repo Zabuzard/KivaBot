@@ -21,7 +21,7 @@ public class EnsureProtectionTask implements ITask {
 	/**
 	 * The Freewar instance to use.
 	 */
-	private IFreewarInstance mInstance;
+	private final IFreewarInstance mInstance;
 	/**
 	 * Whether interrupted flag of the task is set.
 	 */

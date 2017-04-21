@@ -36,7 +36,7 @@ public final class RoutineTask extends Thread implements ITask {
 	/**
 	 * The browser driver provider.
 	 */
-	private IBrowserSettingsProvider mBrowserSettingsProvider;
+	private final IBrowserSettingsProvider mBrowserSettingsProvider;
 	/**
 	 * The controller of the main frame.
 	 */

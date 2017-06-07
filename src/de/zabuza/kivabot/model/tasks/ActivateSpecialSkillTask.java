@@ -3,7 +3,7 @@ package de.zabuza.kivabot.model.tasks;
 import de.zabuza.kivabot.controller.logging.Logger;
 import de.zabuza.kivabot.model.AbortTaskException;
 import de.zabuza.sparkle.freewar.IFreewarInstance;
-import de.zabuza.sparkle.freewar.player.IPlayer;
+import de.zabuza.sparkle.freewar.skills.ISkillManager;
 
 /**
  * A task which activates the special ability of the player.
@@ -68,8 +68,8 @@ public class ActivateSpecialSkillTask implements ITask {
 	public void start() {
 		// Activate the special skill
 		this.mLogger.logInfo("Activating special skill...", Logger.TOP_LEVEL);
-		final IPlayer player = this.mInstance.getPlayer();
-		if (player.activateSpecialSkill()) {
+		final ISkillManager skillManager = this.mInstance.getSkillManager();
+		if (skillManager.activateSpecialSkill()) {
 			this.mLogger.logInfo("Activated special skill.", Logger.FIRST_LEVEL);
 		} else {
 			this.mLogger.logError("Failed to activate special skill.", Logger.FIRST_LEVEL);

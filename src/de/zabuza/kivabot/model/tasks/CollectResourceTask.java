@@ -24,8 +24,8 @@ public class CollectResourceTask implements ITask {
 	 */
 	private final static int MOVEMENT_CHECK_TIMEOUT = 500;
 	/**
-	 * The point representing the x and y coordinations of the destination to
-	 * move to.
+	 * The point representing the x and y coordinations of the destination to move
+	 * to.
 	 */
 	private final Point mDestination;
 	/**
@@ -58,14 +58,14 @@ public class CollectResourceTask implements ITask {
 	private final String mResourceName;
 
 	/**
-	 * Creates a task which moves the given Freewar instance to a given
-	 * destination and collects a given resource by clicking a link.
+	 * Creates a task which moves the given Freewar instance to a given destination
+	 * and collects a given resource by clicking a link.
 	 * 
 	 * @param instance
 	 *            The Freewar instance to use
 	 * @param destination
-	 *            A point representing the x and y coordinations of the
-	 *            destination to move to
+	 *            A point representing the x and y coordinations of the destination
+	 *            to move to
 	 * @param destinationName
 	 *            The name of the destination used by the logger
 	 * @param movementOptions

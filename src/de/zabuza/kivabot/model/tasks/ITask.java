@@ -17,8 +17,7 @@ public interface ITask {
 	/**
 	 * Whether the interrupted flag is set.
 	 * 
-	 * @return <tt>True</tt> if the interrupted flag is set, <tt>false</tt>
-	 *         else.
+	 * @return <tt>True</tt> if the interrupted flag is set, <tt>false</tt> else.
 	 */
 	public boolean isInterrupted();
 
@@ -26,9 +25,8 @@ public interface ITask {
 	 * Starts the task.
 	 * 
 	 * @throws AbortTaskException
-	 *             Thrown whenever the task should be aborted because it
-	 *             encountered an exception. This can be used to catch known
-	 *             errors.
+	 *             Thrown whenever the task should be aborted because it encountered
+	 *             an exception. This can be used to catch known errors.
 	 */
 	public void start();
 }

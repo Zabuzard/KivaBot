@@ -145,8 +145,8 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	}
 
 	/**
-	 * Call whenever the save action is to be executed. This will save all
-	 * settings and close the settings dialog, if opened.
+	 * Call whenever the save action is to be executed. This will save all settings
+	 * and close the settings dialog, if opened.
 	 */
 	public void executeSaveAction() {
 		// Save dialog settings if dialog is opened
@@ -273,8 +273,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.kivabot.controller.settings.ISettingsProvider#getAllSettings()
+	 * @see de.zabuza.kivabot.controller.settings.ISettingsProvider#getAllSettings()
 	 */
 	@Override
 	public Map<String, String> getAllSettings() {
@@ -298,8 +297,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.kivabot.model.IBrowserSettingsProvider#getDriverForBrowser(de.
+	 * @see de.zabuza.kivabot.model.IBrowserSettingsProvider#getDriverForBrowser(de.
 	 * zabuza.sparkle.webdriver.EBrowser)
 	 */
 	@Override
@@ -315,8 +313,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	/**
 	 * Gets the name of the protection spell to use.
 	 * 
-	 * @return The name of the protection spell to use or <tt>null</tt> if not
-	 *         set
+	 * @return The name of the protection spell to use or <tt>null</tt> if not set
 	 */
 	public String getProtectionSpell() {
 		final String protectionSpell = getSetting(KEY_IDENTIFIER_PROTECTION_SPELL);
@@ -329,8 +326,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.kivabot.controller.settings.ISettingsProvider#getSetting(java.
+	 * @see de.zabuza.kivabot.controller.settings.ISettingsProvider#getSetting(java.
 	 * lang.String)
 	 */
 	@Override
@@ -408,8 +404,7 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.kivabot.controller.settings.ISettingsProvider#setSetting(java.
+	 * @see de.zabuza.kivabot.controller.settings.ISettingsProvider#setSetting(java.
 	 * lang.String, java.lang.String)
 	 */
 	@Override

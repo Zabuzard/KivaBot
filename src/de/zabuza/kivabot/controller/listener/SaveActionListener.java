@@ -19,8 +19,8 @@ public final class SaveActionListener implements ActionListener {
 	private final SettingsController mController;
 
 	/**
-	 * Creates a new listener of the save action. Activates a callback which
-	 * saves the settings and closes the settings dialog.
+	 * Creates a new listener of the save action. Activates a callback which saves
+	 * the settings and closes the settings dialog.
 	 * 
 	 * @param controller
 	 *            The controller of the settings

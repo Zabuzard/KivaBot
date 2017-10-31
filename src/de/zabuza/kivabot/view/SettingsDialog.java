@@ -250,8 +250,7 @@ public final class SettingsDialog extends JDialog {
 	}
 
 	/**
-	 * Adds an action listener to the given browser user binary selection
-	 * action.
+	 * Adds an action listener to the given browser user binary selection action.
 	 * 
 	 * @param listener
 	 *            Listener to add

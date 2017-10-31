@@ -46,8 +46,8 @@ public final class Settings {
 	}
 
 	/**
-	 * Loads settings of the saved file and applies the properties to the
-	 * provider settings.
+	 * Loads settings of the saved file and applies the properties to the provider
+	 * settings.
 	 * 
 	 * @param provider
 	 *            Provider which settings will be affected

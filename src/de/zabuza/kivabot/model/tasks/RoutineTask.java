@@ -97,11 +97,10 @@ public final class RoutineTask extends Thread implements ITask {
 	 * @param movementOptions
 	 *            A set containing all movement options allowed to use
 	 * @param protectionSpell
-	 *            If present, the name of the protection spell item to use prior
-	 *            of movement
-	 * @param useSpecialSkill
-	 *            Whether the special skill should get activated prior to
+	 *            If present, the name of the protection spell item to use prior of
 	 *            movement
+	 * @param useSpecialSkill
+	 *            Whether the special skill should get activated prior to movement
 	 * @param subTasks
 	 *            A set containing all sub tasks to execute
 	 * @param logger

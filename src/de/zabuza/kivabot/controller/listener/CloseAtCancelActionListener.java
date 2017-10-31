@@ -19,8 +19,7 @@ public final class CloseAtCancelActionListener implements ActionListener {
 	private final SettingsDialog mDialog;
 
 	/**
-	 * Creates a new listener of the cancel action. Closes the dialog at
-	 * activation.
+	 * Creates a new listener of the cancel action. Closes the dialog at activation.
 	 * 
 	 * @param dialog
 	 *            The dialog of the settings

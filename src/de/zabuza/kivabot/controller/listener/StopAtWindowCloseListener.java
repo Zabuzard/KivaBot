@@ -18,8 +18,8 @@ public final class StopAtWindowCloseListener implements WindowListener {
 	private final MainFrameController mController;
 
 	/**
-	 * Creates a new window listener which stops the current task if the window
-	 * is closed.
+	 * Creates a new window listener which stops the current task if the window is
+	 * closed.
 	 * 
 	 * @param controller
 	 *            Controller of the main frame
@@ -42,8 +42,7 @@ public final class StopAtWindowCloseListener implements WindowListener {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * java.awt.event.WindowListener#windowClosed(java.awt.event.WindowEvent)
+	 * @see java.awt.event.WindowListener#windowClosed(java.awt.event.WindowEvent)
 	 */
 	@Override
 	public void windowClosed(final WindowEvent event) {
@@ -53,8 +52,7 @@ public final class StopAtWindowCloseListener implements WindowListener {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
+	 * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
 	 */
 	@Override
 	public void windowClosing(final WindowEvent event) {
@@ -97,8 +95,7 @@ public final class StopAtWindowCloseListener implements WindowListener {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * java.awt.event.WindowListener#windowOpened(java.awt.event.WindowEvent)
+	 * @see java.awt.event.WindowListener#windowOpened(java.awt.event.WindowEvent)
 	 */
 	@Override
 	public void windowOpened(final WindowEvent event) {

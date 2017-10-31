@@ -42,8 +42,8 @@ public final class FileChooseSetActionListener implements ActionListener {
 	private final boolean mUseDirectoryOnlyMode;
 
 	/**
-	 * Creates a new listener of the file choose and set action. Opens a file
-	 * choose dialog and sets the resulting path to a given text field.
+	 * Creates a new listener of the file choose and set action. Opens a file choose
+	 * dialog and sets the resulting path to a given text field.
 	 * 
 	 * @param parent
 	 *            The parent dialog owning the text field

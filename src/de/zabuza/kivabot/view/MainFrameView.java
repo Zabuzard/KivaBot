@@ -264,8 +264,8 @@ public final class MainFrameView {
 	/**
 	 * Gets whether the use special skill box is checked or not.
 	 * 
-	 * @return <tt>True</tt> if the use special skill box is checked,
-	 *         <tt>false</tt> otherwise
+	 * @return <tt>True</tt> if the use special skill box is checked, <tt>false</tt>
+	 *         otherwise
 	 */
 	public boolean isUseSpecialSkillChecked() {
 		return this.mUseSpecialSkill.isSelected();

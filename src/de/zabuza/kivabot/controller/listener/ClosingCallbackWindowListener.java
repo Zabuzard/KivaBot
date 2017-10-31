@@ -18,8 +18,8 @@ public final class ClosingCallbackWindowListener implements WindowListener {
 	private final SettingsController mController;
 
 	/**
-	 * Creates a new window listener which activates a callback for window
-	 * closing which frees the parent window.
+	 * Creates a new window listener which activates a callback for window closing
+	 * which frees the parent window.
 	 * 
 	 * @param controller
 	 *            Controller of the settings
@@ -42,8 +42,7 @@ public final class ClosingCallbackWindowListener implements WindowListener {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * java.awt.event.WindowListener#windowClosed(java.awt.event.WindowEvent)
+	 * @see java.awt.event.WindowListener#windowClosed(java.awt.event.WindowEvent)
 	 */
 	@Override
 	public void windowClosed(final WindowEvent event) {
@@ -53,8 +52,7 @@ public final class ClosingCallbackWindowListener implements WindowListener {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
+	 * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
 	 */
 	@Override
 	public void windowClosing(final WindowEvent event) {
@@ -97,8 +95,7 @@ public final class ClosingCallbackWindowListener implements WindowListener {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * java.awt.event.WindowListener#windowOpened(java.awt.event.WindowEvent)
+	 * @see java.awt.event.WindowListener#windowOpened(java.awt.event.WindowEvent)
 	 */
 	@Override
 	public void windowOpened(final WindowEvent event) {

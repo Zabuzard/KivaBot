@@ -143,14 +143,6 @@ public final class SettingsDialog extends JDialog {
 	 */
 	private JTextField mMsEdgeDriverField;
 	/**
-	 * Select driver button of the dialog for Opera.
-	 */
-	private JButton mOperaBtn;
-	/**
-	 * The driver input field for Opera.
-	 */
-	private JTextField mOperaDriverField;
-	/**
 	 * The protection spell miscellaneous input field.
 	 */
 	private JTextField mProtectionSpellMiscellaneousField;
@@ -170,14 +162,6 @@ public final class SettingsDialog extends JDialog {
 	 * The trailer panel of the dialog.
 	 */
 	private JPanel mTrailerPanel;
-	/**
-	 * Select user profile button of the dialog for browsers.
-	 */
-	private JButton mUserProfileBtn;
-	/**
-	 * The browser user profile input field.
-	 */
-	private JTextField mUserProfileField;
 
 	/**
 	 * Creates a new settings dialog window.
@@ -220,8 +204,6 @@ public final class SettingsDialog extends JDialog {
 			this.mInternetExplorerBtn.addActionListener(listener);
 		} else if (browser == EBrowser.MS_EDGE) {
 			this.mMsEdgeBtn.addActionListener(listener);
-		} else if (browser == EBrowser.OPERA) {
-			this.mOperaBtn.addActionListener(listener);
 		} else if (browser == EBrowser.SAFARI) {
 			this.mSafariBtn.addActionListener(listener);
 		} else {
@@ -250,16 +232,6 @@ public final class SettingsDialog extends JDialog {
 	}
 
 	/**
-	 * Adds an action listener to the given browser user binary selection action.
-	 * 
-	 * @param listener
-	 *            Listener to add
-	 */
-	public void addListenerToUserProfileSelectionAction(final ActionListener listener) {
-		this.mUserProfileBtn.addActionListener(listener);
-	}
-
-	/**
 	 * Gets the binary field.
 	 * 
 	 * @return The binary field
@@ -284,8 +256,6 @@ public final class SettingsDialog extends JDialog {
 			return this.mInternetExplorerDriverField;
 		} else if (browser == EBrowser.MS_EDGE) {
 			return this.mMsEdgeDriverField;
-		} else if (browser == EBrowser.OPERA) {
-			return this.mOperaDriverField;
 		} else if (browser == EBrowser.SAFARI) {
 			return this.mSafariDriverField;
 		} else {
@@ -300,15 +270,6 @@ public final class SettingsDialog extends JDialog {
 	 */
 	public JTextField getProtectionSpellField() {
 		return this.mProtectionSpellMiscellaneousField;
-	}
-
-	/**
-	 * Gets the user profile field.
-	 * 
-	 * @return The user profile field
-	 */
-	public JTextField getUserProfileField() {
-		return this.mUserProfileField;
 	}
 
 	/**
@@ -362,11 +323,6 @@ public final class SettingsDialog extends JDialog {
 		this.mDriverPanel.add(this.mMsEdgeBtn);
 		this.mElements.add(this.mMsEdgeBtn);
 
-		this.mOperaBtn = new JButton(SELECT_TITLE);
-		this.mOperaBtn.setBounds(290, 150, 80, 20);
-		this.mDriverPanel.add(this.mOperaBtn);
-		this.mElements.add(this.mOperaBtn);
-
 		this.mSafariBtn = new JButton(SELECT_TITLE);
 		this.mSafariBtn.setBounds(290, 180, 80, 20);
 		this.mDriverPanel.add(this.mSafariBtn);
@@ -376,11 +332,6 @@ public final class SettingsDialog extends JDialog {
 		this.mBinaryBtn.setBounds(290, 30, 80, 20);
 		this.mBrowserPanel.add(this.mBinaryBtn);
 		this.mElements.add(this.mBinaryBtn);
-
-		this.mUserProfileBtn = new JButton(SELECT_TITLE);
-		this.mUserProfileBtn.setBounds(290, 60, 80, 20);
-		this.mBrowserPanel.add(this.mUserProfileBtn);
-		this.mElements.add(this.mUserProfileBtn);
 
 		this.mSaveBtn = new JButton("Save");
 		this.mSaveBtn.setBounds((FRAME_WIDTH / 2) - 100, 410, 80, 20);
@@ -425,13 +376,6 @@ public final class SettingsDialog extends JDialog {
 		this.mElements.add(this.mMsEdgeDriverField);
 		this.mMsEdgeDriverField.setColumns(DEFAULT_FIELD_COLUMNS);
 
-		this.mOperaDriverField = new JTextField();
-		this.mOperaDriverField.setHorizontalAlignment(SwingConstants.LEFT);
-		this.mOperaDriverField.setBounds(80, 150, 200, 20);
-		this.mDriverPanel.add(this.mOperaDriverField);
-		this.mElements.add(this.mOperaDriverField);
-		this.mOperaDriverField.setColumns(DEFAULT_FIELD_COLUMNS);
-
 		this.mSafariDriverField = new JTextField();
 		this.mSafariDriverField.setHorizontalAlignment(SwingConstants.LEFT);
 		this.mSafariDriverField.setBounds(80, 180, 200, 20);
@@ -445,13 +389,6 @@ public final class SettingsDialog extends JDialog {
 		this.mBrowserPanel.add(this.mBinaryField);
 		this.mElements.add(this.mBinaryField);
 		this.mBinaryField.setColumns(DEFAULT_FIELD_COLUMNS);
-
-		this.mUserProfileField = new JTextField();
-		this.mUserProfileField.setHorizontalAlignment(SwingConstants.LEFT);
-		this.mUserProfileField.setBounds(80, 60, 200, 20);
-		this.mBrowserPanel.add(this.mUserProfileField);
-		this.mElements.add(this.mUserProfileField);
-		this.mUserProfileField.setColumns(DEFAULT_FIELD_COLUMNS);
 
 		this.mProtectionSpellMiscellaneousField = new JTextField(DEFAULT_PROTECTION_SPELL);
 		this.mProtectionSpellMiscellaneousField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -489,12 +426,6 @@ public final class SettingsDialog extends JDialog {
 		mMsEdgeDriverLbl.setBounds(10, 120, 60, 14);
 		this.mDriverPanel.add(mMsEdgeDriverLbl);
 
-		final JLabel mOperaDriverLbl = new JLabel("Opera:");
-		mOperaDriverLbl.setHorizontalAlignment(SwingConstants.RIGHT);
-		mOperaDriverLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
-		mOperaDriverLbl.setBounds(10, 150, 60, 14);
-		this.mDriverPanel.add(mOperaDriverLbl);
-
 		final JLabel mSafariDriverLbl = new JLabel("Safari:");
 		mSafariDriverLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		mSafariDriverLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
@@ -506,12 +437,6 @@ public final class SettingsDialog extends JDialog {
 		mBinaryLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
 		mBinaryLbl.setBounds(10, 30, 60, 14);
 		this.mBrowserPanel.add(mBinaryLbl);
-
-		final JLabel mUserProfileLbl = new JLabel("Profile:");
-		mUserProfileLbl.setHorizontalAlignment(SwingConstants.RIGHT);
-		mUserProfileLbl.setFont(new Font(DEFAULT_FONT, Font.BOLD, DEFAULT_FONT_SIZE + 1));
-		mUserProfileLbl.setBounds(10, 60, 60, 14);
-		this.mBrowserPanel.add(mUserProfileLbl);
 
 		final JLabel mProtectionSpellMiscellaneousLbl = new JLabel("Protection spell:");
 		mProtectionSpellMiscellaneousLbl.setHorizontalAlignment(SwingConstants.RIGHT);

@@ -154,12 +154,8 @@ public final class RoutineTask extends Thread implements ITask {
 		try {
 			// Create sparkle API
 			this.mLogger.logInfo("Starting Sparkle...", Logger.TOP_LEVEL);
-			this.mApi = new Sparkle(this.mBrowser);
-			final DesiredCapabilities capabilities = this.mApi.createCapabilities(this.mBrowser,
-					this.mBrowserSettingsProvider.getDriverForBrowser(this.mBrowser),
-					this.mBrowserSettingsProvider.getBrowserBinary(), this.mBrowserSettingsProvider.getUserProfile());
+			this.mApi = new Sparkle(this.mBrowser, this.mBrowserSettingsProvider.getDriverForBrowser(this.mBrowser), this.mBrowserSettingsProvider.getBrowserBinary());
 
-			this.mApi.setCapabilities(capabilities);
 			this.mLogger.logInfo("Sparkle started.", Logger.FIRST_LEVEL);
 
 			// Login and create an instance
@@ -197,11 +193,11 @@ public final class RoutineTask extends Thread implements ITask {
 			}
 			// Collect oil barrel
 			if (this.mSubTasks.contains(EKivaTask.OIL_BARREL)) {
-				collectResource(new Point(103, 117), "oil storehouse", "Ölfässer mitnehmen", "oil barrel");
+				collectResource(new Point(103, 117), "oil storehouse", "Ã–lfÃ¤sser mitnehmen", "oil barrel");
 			}
 			// Collect gold from the universal foundation
 			if (this.mSubTasks.contains(EKivaTask.UNIVERSAL_FOUNDATION)) {
-				collectResource(new Point(87, 112), "universal foundation", "Goldmünzen abholen", "gold");
+				collectResource(new Point(87, 112), "universal foundation", "GoldmÃ¼nzen abholen", "gold");
 			}
 		} catch (final AbortTaskException e) {
 			// Known exception, just terminate

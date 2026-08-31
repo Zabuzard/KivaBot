@@ -72,10 +72,6 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 	 */
 	private static final String KEY_IDENTIFIER_USE_SPECIAL_SKILL = "use_special_skill";
 	/**
-	 * Key identifier for user profile setting.
-	 */
-	private static final String KEY_IDENTIFIER_USER_PROFILE = "userProfile";
-	/**
 	 * Key identifier for the username.
 	 */
 	private static final String KEY_IDENTIFIER_USERNAME = "username";
@@ -167,14 +163,6 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 			if (!binaryValue.equals(UNKNOWN_KEY_VALUE)) {
 				final String key = KEY_IDENTIFIER_BINARY;
 				setSetting(key, binaryValue);
-			}
-
-			// User profile setting
-			final JTextField userProfileField = this.mSettingsDialog.getUserProfileField();
-			final String userProfileValue = userProfileField.getText();
-			if (!userProfileValue.equals(UNKNOWN_KEY_VALUE)) {
-				final String key = KEY_IDENTIFIER_USER_PROFILE;
-				setSetting(key, userProfileValue);
 			}
 
 			// Protection spell setting
@@ -338,21 +326,6 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 		return value;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.zabuza.beedlebot.logindialog.controller.settings.
-	 * IBrowserSettingsProvider#getUserProfile()
-	 */
-	@Override
-	public String getUserProfile() {
-		final String userProfile = getSetting(KEY_IDENTIFIER_USER_PROFILE);
-		if (userProfile.equals(UNKNOWN_KEY_VALUE)) {
-			return null;
-		}
-		return userProfile;
-	}
-
 	/**
 	 * Initializes the controller.
 	 */
@@ -431,11 +404,6 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 				this.mSettingsDialog.getBinaryField(), false);
 		this.mSettingsDialog.addListenerToBinarySelectionAction(binaryListener);
 
-		// User profile listener
-		final ActionListener userProfileListener = new FileChooseSetActionListener(this.mSettingsDialog,
-				this.mSettingsDialog.getUserProfileField(), true);
-		this.mSettingsDialog.addListenerToUserProfileSelectionAction(userProfileListener);
-
 		// Save and cancel listener
 		this.mSettingsDialog.addListenerToSaveAction(new SaveActionListener(this));
 		this.mSettingsDialog.addListenerToCancelAction(new CloseAtCancelActionListener(this.mSettingsDialog));
@@ -464,10 +432,6 @@ public final class SettingsController implements ISettingsProvider, IBrowserSett
 			} else if (keyIdentifier.equals(KEY_IDENTIFIER_BINARY)) {
 				// Binary settings
 				final JTextField field = this.mSettingsDialog.getBinaryField();
-				field.setText(entry.getValue());
-			} else if (keyIdentifier.equals(KEY_IDENTIFIER_USER_PROFILE)) {
-				// User profile settings
-				final JTextField field = this.mSettingsDialog.getUserProfileField();
 				field.setText(entry.getValue());
 			} else if (keyIdentifier.equals(KEY_IDENTIFIER_PROTECTION_SPELL)) {
 				// Protection spell settings

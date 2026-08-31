@@ -54,8 +54,8 @@ public final class Settings {
 	 */
 	public final void loadSettings(final ISettingsProvider provider) {
 		this.mLogger.logInfo("Loading settings...", Logger.TOP_LEVEL);
-		try (final FileInputStream fis = new FileInputStream(FILEPATH)) {
-			try {
+		try {
+			try (final FileInputStream fis = new FileInputStream(FILEPATH)) {
 				this.mProperties.load(fis);
 			} catch (final FileNotFoundException e) {
 				saveSettings(provider);

@@ -154,7 +154,10 @@ public final class RoutineTask extends Thread implements ITask {
 		try {
 			// Create sparkle API
 			this.mLogger.logInfo("Starting Sparkle...", Logger.TOP_LEVEL);
-			this.mApi = new Sparkle(this.mBrowser, this.mBrowserSettingsProvider.getDriverForBrowser(this.mBrowser), this.mBrowserSettingsProvider.getBrowserBinary());
+			this.mApi = new Sparkle(this.mBrowser,
+					this.mBrowserSettingsProvider.getDriverForBrowser(this.mBrowser),
+					this.mBrowserSettingsProvider.getBrowserBinary(),
+					this.mBrowserSettingsProvider.getUserProfile());
 
 			this.mLogger.logInfo("Sparkle started.", Logger.FIRST_LEVEL);
 
